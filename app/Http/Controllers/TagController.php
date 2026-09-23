@@ -1,0 +1,48 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Graffiti;
+use App\Models\Tag;
+use App\Services\Ranking;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
+
+class TagController extends Controller
+{
+    /**
+     * El perfil de un tag: mapa de sus grafitis, feed de fotos y su lugar en
+     * el ranking junto al tag de arriba y el de abajo.
+     */
+    public function show(Tag $tag, Ranking $ranking): View
+    {
+        $tag->load('artist');
+        $graffitis = $tag->graffitis()->latest('id')->get();
+
+        return view('tags.show', [
+            'tag' => $tag,
+            'graffitis' => $graffitis,
+            'points' => $graffitis->map(fn (Graffiti $g) => [
+                'lat' => $g->lat,
+                'lng' => $g->lng,
+                'thumb' => $g->thumbUrl(),
+                'tag' => $tag->text,
+            ]),
+            'photos' => $tag->photos()->latest('photos.id')->limit(60)->get(),
+            'rank' => $ranking->around($tag),
+        ]);
+    }
+
+    /**
+     * "Mi perfil" del menú: lleva al tag del usuario o a reclamar uno.
+     */
+    public function mine(Request $request): RedirectResponse
+    {
+        $tag = $request->user()->tag()->first();
+
+        return $tag
+            ? redirect()->route('tags.show', $tag)
+            : redirect()->route('my-tag.create');
+    }
+}
