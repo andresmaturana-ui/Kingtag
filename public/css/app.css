@@ -84,7 +84,7 @@ img { max-width: 100%; display: block; }
 .home-buttons { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
 .home-button {
     display: flex; align-items: center; justify-content: center; padding: 9px 4px 7px;
-    border-radius: var(--radius); background: var(--panel); border: 1px solid var(--line);
+    border-radius: 0; background: var(--panel); border: 1px solid var(--line);
     color: var(--text); text-decoration: none; text-align: center;
     font-family: "Bebas Neue", system-ui, sans-serif; font-size: clamp(1rem, 5vw, 1.2rem); line-height: 1; letter-spacing: .02em; white-space: nowrap; text-transform: uppercase;
 }
