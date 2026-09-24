@@ -16,7 +16,7 @@
 </head>
 <body>
     <header class="topbar">
-        <a href="{{ route('home') }}" class="logo">TAG<span>KING</span></a>
+        <a href="{{ route('home') }}" class="logo"><img src="/img/logo.svg" alt="{{ config('kingtag.name') }}" width="97" height="40"></a>
         <button class="burger" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu" data-burger>
             <span></span><span></span><span></span>
         </button>
