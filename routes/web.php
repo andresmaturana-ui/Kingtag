@@ -6,6 +6,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MapController;
 use App\Http\Controllers\MyTagController;
+use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\RankingController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SightingController;
@@ -16,6 +17,7 @@ Route::get('/', HomeController::class)->name('home');
 Route::get('/buscar', SearchController::class)->name('search');
 Route::get('/ranking', RankingController::class)->name('ranking');
 Route::get('/tags/{tag}', [TagController::class, 'show'])->name('tags.show');
+Route::get('/fotos/{photo}', [PhotoController::class, 'show'])->name('photos.show');
 
 Route::get('/mapa/grafitis', [MapController::class, 'graffitis'])->name('map.graffitis');
 Route::get('/mapa/cerca', [MapController::class, 'nearby'])->name('map.nearby');
@@ -36,6 +38,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/mi-perfil', [TagController::class, 'mine'])->name('profile');
     Route::get('/mi-tag', [MyTagController::class, 'create'])->name('my-tag.create');
     Route::post('/mi-tag', [MyTagController::class, 'store'])->name('my-tag.store');
+
+    Route::post('/fotos/{photo}/me-gusta', [PhotoController::class, 'like'])->name('photos.like')->middleware('throttle:60,1');
+    Route::post('/fotos/{photo}/comentarios', [PhotoController::class, 'comment'])->name('photos.comment')->middleware('throttle:20,60');
+    Route::delete('/comentarios/{comment}', [PhotoController::class, 'deleteComment'])->name('comments.delete');
 
     Route::get('/registrar', [SightingController::class, 'create'])->name('sightings.create');
     // Máximo 30 registros por hora por usuario, para frenar el spam.

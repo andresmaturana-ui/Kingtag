@@ -15,9 +15,9 @@
     @if ($photos->isNotEmpty())
         <div class="feed">
             @foreach ($photos as $photo)
-                <a href="{{ route('tags.show', $photo->graffiti->tag) }}">
+                <a href="{{ route('photos.show', $photo) }}">
                     <img src="{{ $photo->thumbUrl() }}" alt="Grafiti de {{ $photo->graffiti->tag->text }}" loading="lazy">
-                    <span>{{ $photo->graffiti->tag->text }}</span>
+                    <span>{{ $photo->graffiti->tag->text }}@if ($photo->likers_count) · ♥ {{ $photo->likers_count }}@endif</span>
                 </a>
             @endforeach
         </div>

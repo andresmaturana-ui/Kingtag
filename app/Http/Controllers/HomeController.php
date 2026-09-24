@@ -15,6 +15,7 @@ class HomeController extends Controller
         return view('home', [
             'photos' => Photo::query()
                 ->with('graffiti.tag')
+                ->withCount('likers')
                 ->latest('id')
                 ->simplePaginate(30),
         ]);

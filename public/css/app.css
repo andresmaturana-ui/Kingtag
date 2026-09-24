@@ -84,6 +84,24 @@ img { max-width: 100%; display: block; }
 }
 .home-button.accent { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
 .more { text-align: center; margin-top: 16px; }
+.photo-full { margin: 0 -16px; }
+.photo-full img { width: 100%; max-height: 75vh; object-fit: contain; background: #000; }
+.photo-full figcaption { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 10px 16px 0; }
+.photo-actions { display: flex; align-items: center; gap: 12px; margin-top: 12px; }
+.like {
+    display: inline-flex; align-items: center; gap: 6px; font: inherit; font-weight: 700;
+    color: var(--text); background: var(--panel); border: 1px solid var(--line); border-radius: 999px;
+    padding: 8px 14px; cursor: pointer; text-decoration: none;
+}
+.like span { font-size: 1.2rem; line-height: 1; }
+.like.liked { border-color: var(--danger); }
+.like.liked span { color: var(--danger); }
+.comment { padding: 8px 0; border-bottom: 1px solid var(--line); }
+.comment p { margin: 2px 0; word-break: break-word; }
+.comment-form { margin: 12px 0 20px; }
+form.inline { display: inline; }
+.link-button { font: inherit; background: none; border: 0; padding: 0 0 0 8px; color: var(--muted); text-decoration: underline; cursor: pointer; }
+.photo-tag { font-family: var(--display); font-size: 1.6rem; color: var(--text); text-decoration: none; }
 .big-button {
     display: block; padding: 26px 22px; border-radius: var(--radius);
     background: var(--panel); border: 1px solid var(--line);

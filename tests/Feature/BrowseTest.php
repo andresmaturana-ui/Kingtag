@@ -50,8 +50,19 @@ class BrowseTest extends TestCase
 
         $this->get('/')->assertOk()
             ->assertSeeInOrder(['NUEVO', 'VIEJO'])
-            ->assertSee(route('tags.show', $tags['NUEVO']))
+            ->assertSee(route('photos.show', Photo::latest('id')->first()))
             ->assertDontSee('Ver más');
+    }
+
+    public function test_a_photo_opens_big_with_its_tag(): void
+    {
+        $tag = $this->tagsWithGraffitis(['KASE' => 1])['KASE'];
+        $graffiti = $tag->graffitis()->sole();
+        $photo = Photo::create(['graffiti_id' => $graffiti->id, 'path' => $graffiti->photo, 'thumb' => $graffiti->thumb]);
+
+        $this->get(route('photos.show', $photo))->assertOk()
+            ->assertSee($photo->url())
+            ->assertSee(route('tags.show', $tag));
     }
 
     public function test_ranking_orders_tags_by_number_of_graffitis(): void
