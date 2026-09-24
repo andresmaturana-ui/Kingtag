@@ -11,6 +11,7 @@
     <link rel="apple-touch-icon" href="/icons/icon-192.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     @stack('head')
+    <link rel="preload" href="/fonts/permanent-marker.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="/css/app.css?v={{ filemtime(public_path('css/app.css')) }}">
 </head>
 <body>
@@ -25,8 +26,12 @@
         <a href="{{ route('home') }}">Inicio</a>
         <a href="{{ route('search') }}">Buscar</a>
         <a href="{{ route('ranking') }}">Ranking</a>
+        <a href="{{ route('contact') }}">Contacto</a>
         @auth
             <a href="{{ route('profile') }}">Mi perfil</a>
+            @if (auth()->user()->is_admin)
+                <a href="{{ route('admin.index') }}">Administrar</a>
+            @endif
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button type="submit">Salir ({{ auth()->user()->username }})</button>

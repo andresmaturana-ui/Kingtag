@@ -6,6 +6,7 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -25,6 +26,7 @@ class User extends Authenticatable
     {
         return [
             'password' => 'hashed',
+            'is_admin' => 'boolean',
         ];
     }
 
@@ -34,5 +36,10 @@ class User extends Authenticatable
     public function tag(): HasOne
     {
         return $this->hasOne(Tag::class, 'artist_id');
+    }
+
+    public function photos(): HasMany
+    {
+        return $this->hasMany(Photo::class);
     }
 }

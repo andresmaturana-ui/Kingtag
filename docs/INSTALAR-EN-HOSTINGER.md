@@ -95,9 +95,27 @@ php artisan route:cache
 php artisan view:cache
 ```
 
+## Panel de administración
+
+Primero crea tu cuenta en la app como cualquier usuario. Después, por SSH, conviértela en administrador:
+
+```sh
+cd ~/domains/tudominio.cl/kingtag
+php artisan kingtag:admin tu_usuario
+```
+
+Entra a la app con esa cuenta. En el menú ☰ aparece **Administrar** (o abre `/admin`). Desde ahí puedes:
+
+- Leer los mensajes que llegan por **Contacto**.
+- Buscar y borrar tags, con todos sus grafitis y fotos, o quitarle el dueño a un tag.
+- Borrar fotos sueltas desde el perfil de cada tag: los administradores ven un botón **Borrar** sobre cada foto.
+- Crear una clave nueva para un usuario que la olvidó, o borrar una cuenta.
+
+Para quitarle el permiso a alguien: `php artisan kingtag:admin su_usuario --quitar`.
+
 ## Si alguien olvida su clave
 
-Las cuentas no tienen correo, así que la clave se resetea a mano por SSH:
+Lo más fácil es hacerlo desde **Administrar → Usuarios → Nueva clave**. También se puede por SSH:
 
 ```sh
 cd ~/domains/tudominio.cl/kingtag
