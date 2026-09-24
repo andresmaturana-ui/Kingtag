@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Graffiti;
+use App\Models\Photo;
 use App\Models\Tag;
 use App\Services\Ranking;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -35,6 +36,22 @@ class BrowseTest extends TestCase
         $this->get('/ranking')->assertOk();
         $this->get('/entrar')->assertOk();
         $this->get('/registro')->assertOk();
+    }
+
+    public function test_home_shows_the_latest_photos_newest_first(): void
+    {
+        $this->get('/')->assertSee('Todavía no hay grafitis');
+
+        $tags = $this->tagsWithGraffitis(['VIEJO' => 1, 'NUEVO' => 1]);
+        foreach ($tags as $tag) {
+            $graffiti = $tag->graffitis()->sole();
+            Photo::create(['graffiti_id' => $graffiti->id, 'path' => $graffiti->photo, 'thumb' => $graffiti->thumb]);
+        }
+
+        $this->get('/')->assertOk()
+            ->assertSeeInOrder(['NUEVO', 'VIEJO'])
+            ->assertSee(route('tags.show', $tags['NUEVO']))
+            ->assertDontSee('Ver más');
     }
 
     public function test_ranking_orders_tags_by_number_of_graffitis(): void

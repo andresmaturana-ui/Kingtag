@@ -4,19 +4,28 @@
     <section class="home">
         <p class="tagline">Los tags de la ciudad, en un mapa.</p>
 
-        <a class="big-button" href="{{ route('my-tag.create') }}">
-            <strong>Ingresa tu tag</strong>
-            <span>Eres artista: reclama tu tag y mira dónde está tu obra.</span>
-        </a>
-
-        <a class="big-button accent" href="{{ route('sightings.create') }}">
-            <strong>Registrar tag</strong>
-            <span>Viste un tag en la calle: sácale una foto.</span>
-        </a>
-
-        <a class="big-button" href="{{ route('search') }}">
-            <strong>Buscar tag</strong>
-            <span>En el mapa, por nombre o cerca de ti.</span>
-        </a>
+        <nav class="home-buttons">
+            <a class="home-button" href="{{ route('my-tag.create') }}">Ingresa tu tag</a>
+            <a class="home-button accent" href="{{ route('sightings.create') }}">Registrar tag</a>
+            <a class="home-button" href="{{ route('search') }}">Buscar tag</a>
+        </nav>
     </section>
+
+    <h2>Lo último</h2>
+    @if ($photos->isNotEmpty())
+        <div class="feed">
+            @foreach ($photos as $photo)
+                <a href="{{ route('tags.show', $photo->graffiti->tag) }}">
+                    <img src="{{ $photo->thumbUrl() }}" alt="Grafiti de {{ $photo->graffiti->tag->text }}" loading="lazy">
+                    <span>{{ $photo->graffiti->tag->text }}</span>
+                </a>
+            @endforeach
+        </div>
+
+        @if ($photos->hasMorePages())
+            <p class="more"><a class="button secondary" href="{{ $photos->nextPageUrl() }}">Ver más</a></p>
+        @endif
+    @else
+        <p class="muted">Todavía no hay grafitis. ¡Registra el primero!</p>
+    @endif
 @endsection
