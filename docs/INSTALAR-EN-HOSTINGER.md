@@ -1,4 +1,4 @@
-# Instalar Kingtag en Hostinger (plan Premium Web Hosting)
+# Instalar TAGKING en Hostinger (plan Premium Web Hosting)
 
 Esta guía la haces una sola vez. Toma unos 20 minutos. Donde dice
 `tudominio.cl`, pon tu dominio real.
