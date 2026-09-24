@@ -11,6 +11,7 @@
     <link rel="apple-touch-icon" href="/icons/icon-192.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     @stack('head')
+    <link rel="preload" href="/fonts/permanent-marker.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="/css/app.css?v={{ filemtime(public_path('css/app.css')) }}">
 </head>
 <body>
