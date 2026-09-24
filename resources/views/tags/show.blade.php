@@ -44,12 +44,38 @@
         <h2>Fotos</h2>
         <div class="feed">
             @foreach ($photos as $photo)
-                <a href="{{ $photo->url() }}" target="_blank" rel="noopener">
-                    <img src="{{ $photo->thumbUrl() }}" alt="Grafiti de {{ $tag->text }}" loading="lazy">
-                </a>
+                <div class="feed-item">
+                    <a href="{{ $photo->url() }}" target="_blank" rel="noopener">
+                        <img src="{{ $photo->thumbUrl() }}" alt="Grafiti de {{ $tag->text }}" loading="lazy">
+                    </a>
+                    @if ($isAdmin)
+                        <form method="POST" action="{{ route('admin.photos.delete', $photo) }}" data-confirm="¿Borrar esta foto? No se puede deshacer.">
+                            @csrf
+                            @method('DELETE')
+                            <button class="feed-delete">Borrar</button>
+                        </form>
+                    @endif
+                </div>
             @endforeach
         </div>
     @else
         <p class="muted">Todavía nadie ha registrado grafitis de este tag.</p>
+    @endif
+
+    @if ($isAdmin)
+        <h2>Administrar</h2>
+        <div class="admin-actions">
+            @if ($tag->isClaimed())
+                <form method="POST" action="{{ route('admin.tags.unclaim', $tag) }}" data-confirm="¿Quitarle este tag a {{ $tag->artist->username }}? Sus grafitis se mantienen.">
+                    @csrf
+                    <button class="button secondary small-button">Quitar dueño</button>
+                </form>
+            @endif
+            <form method="POST" action="{{ route('admin.tags.delete', $tag) }}" data-confirm="¿Borrar el tag {{ $tag->text }} con todos sus grafitis y fotos? No se puede deshacer.">
+                @csrf
+                @method('DELETE')
+                <button class="button danger small-button">Borrar tag</button>
+            </form>
+        </div>
     @endif
 @endsection

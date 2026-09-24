@@ -26,8 +26,12 @@
         <a href="{{ route('home') }}">Inicio</a>
         <a href="{{ route('search') }}">Buscar</a>
         <a href="{{ route('ranking') }}">Ranking</a>
+        <a href="{{ route('contact') }}">Contacto</a>
         @auth
             <a href="{{ route('profile') }}">Mi perfil</a>
+            @if (auth()->user()->is_admin)
+                <a href="{{ route('admin.index') }}">Administrar</a>
+            @endif
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button type="submit">Salir ({{ auth()->user()->username }})</button>

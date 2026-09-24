@@ -73,6 +73,12 @@ document.querySelectorAll('[data-geo-form]').forEach((form) => {
     });
 });
 
+// Pide confirmación antes de acciones que no se pueden deshacer
+document.addEventListener('submit', (e) => {
+    const message = e.target.dataset?.confirm;
+    if (message && !confirm(message)) e.preventDefault();
+});
+
 // App instalable
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js'));

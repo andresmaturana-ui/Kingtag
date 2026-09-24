@@ -15,7 +15,7 @@ class TagController extends Controller
      * El perfil de un tag: mapa de sus grafitis, feed de fotos y su lugar en
      * el ranking junto al tag de arriba y el de abajo.
      */
-    public function show(Tag $tag, Ranking $ranking): View
+    public function show(Request $request, Tag $tag, Ranking $ranking): View
     {
         $tag->load('artist');
         $graffitis = $tag->graffitis()->latest('id')->get();
@@ -31,6 +31,7 @@ class TagController extends Controller
             ]),
             'photos' => $tag->photos()->latest('photos.id')->limit(60)->get(),
             'rank' => $ranking->around($tag),
+            'isAdmin' => (bool) $request->user()?->is_admin,
         ]);
     }
 
