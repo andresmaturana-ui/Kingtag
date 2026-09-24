@@ -45,7 +45,7 @@
         <div class="feed">
             @foreach ($photos as $photo)
                 <div class="feed-item">
-                    <a href="{{ $photo->url() }}" target="_blank" rel="noopener">
+                    <a href="{{ route('photos.show', $photo) }}">
                         <img src="{{ $photo->thumbUrl() }}" alt="Grafiti de {{ $tag->text }}" loading="lazy">
                     </a>
                     @if ($isAdmin)
