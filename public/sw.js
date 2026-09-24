@@ -1,6 +1,6 @@
 // Service worker mínimo: guarda los archivos fijos para que la app abra
 // rápido. Las páginas y los datos siempre se piden a la red.
-const CACHE = 'kingtag-v4';
+const CACHE = 'kingtag-v5';
 const ASSETS = ['/css/app.css', '/js/app.js', '/js/map.js', '/fonts/permanent-marker.woff2', '/icons/icon-192.png', '/manifest.webmanifest'];
 
 self.addEventListener('install', (event) => {

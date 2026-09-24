@@ -31,7 +31,7 @@ class BrowseTest extends TestCase
 
     public function test_pages_load(): void
     {
-        $this->get('/')->assertOk()->assertSee('Ingresa tu tag')->assertSee('Registrar tag')->assertSee('Buscar tag');
+        $this->get('/')->assertOk()->assertSee('<title>TAGKING</title>', false)->assertSee('Ingresa tu tag')->assertSee('Registrar tag')->assertSee('Buscar tag');
         $this->get('/buscar')->assertOk();
         $this->get('/ranking')->assertOk();
         $this->get('/entrar')->assertOk();

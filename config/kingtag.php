@@ -2,6 +2,9 @@
 
 return [
 
+    // El nombre que se ve en la app (logo, pestaña del navegador).
+    'name' => 'TAGKING',
+
     /*
     |--------------------------------------------------------------------------
     | Centro del mapa

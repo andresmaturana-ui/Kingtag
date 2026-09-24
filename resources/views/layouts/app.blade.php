@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="#111111">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@hasSection('title')@yield('title') · @endif{{ config('app.name') }}</title>
+    <title>@hasSection('title')@yield('title') · @endif{{ config('kingtag.name') }}</title>
     <link rel="manifest" href="/manifest.webmanifest">
     <link rel="icon" href="/icons/icon-192.png">
     <link rel="apple-touch-icon" href="/icons/icon-192.png">
@@ -16,7 +16,7 @@
 </head>
 <body>
     <header class="topbar">
-        <a href="{{ route('home') }}" class="logo">KING<span>TAG</span></a>
+        <a href="{{ route('home') }}" class="logo">TAG<span>KING</span></a>
         <button class="burger" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu" data-burger>
             <span></span><span></span><span></span>
         </button>
