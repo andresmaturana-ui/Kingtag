@@ -45,7 +45,7 @@ img { max-width: 100%; display: block; }
     background: var(--bg); border-bottom: 1px solid var(--line);
 }
 .logo { display: block; line-height: 0; }
-.logo img { display: block; height: 40px; width: auto; }
+.logo img { display: block; height: 54px; width: auto; }
 .burger { width: 44px; height: 44px; display: grid; place-content: center; gap: 5px; background: none; border: 0; cursor: pointer; }
 .burger span { display: block; width: 26px; height: 3px; background: var(--text); border-radius: 2px; transition: transform .2s, opacity .2s; }
 .menu-open .burger span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
