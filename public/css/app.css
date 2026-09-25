@@ -93,7 +93,9 @@ img { max-width: 100%; display: block; }
 .photo-full { margin: 0 -16px; }
 .photo-full img { width: 100%; max-height: 75vh; object-fit: contain; background: #000; }
 .photo-full figcaption { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 10px 16px 0; }
-.photo-actions { display: flex; align-items: center; gap: 12px; margin-top: 12px; }
+.photo-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 12px; }
+.photo-actions > * { white-space: nowrap; }
+.photo-delete { margin-left: auto; }
 .like {
     display: inline-flex; align-items: center; gap: 6px; font: inherit; font-weight: 700;
     color: var(--text); background: var(--panel); border: 1px solid var(--line); border-radius: 999px;

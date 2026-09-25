@@ -43,7 +43,7 @@ class AdminTest extends TestCase
         $this->actingAs(User::factory()->create())->get('/admin')->assertForbidden();
         $user = User::factory()->create();
         $this->register($user, 'KASE');
-        $this->actingAs($user)->delete('/admin/fotos/'.Photo::sole()->id)->assertForbidden();
+        $this->actingAs($user)->delete('/fotos/'.Photo::sole()->id)->assertForbidden();
         $this->assertSame(1, Photo::count());
 
         foreach (['/admin', '/admin/mensajes', '/admin/tags', '/admin/usuarios'] as $url) {
@@ -67,7 +67,7 @@ class AdminTest extends TestCase
         $main = $graffiti->photos()->where('path', $graffiti->photo)->sole();
         $other = $graffiti->photos()->whereKeyNot($main->id)->sole();
 
-        $this->actingAs($this->admin)->delete("/admin/fotos/{$main->id}")->assertRedirect();
+        $this->actingAs($this->admin)->delete("/fotos/{$main->id}")->assertRedirect();
 
         $graffiti->refresh();
         $this->assertSame($other->path, $graffiti->photo);
@@ -81,7 +81,7 @@ class AdminTest extends TestCase
     {
         $this->register(User::factory()->create(), 'KASE');
 
-        $this->actingAs($this->admin)->delete('/admin/fotos/'.Photo::sole()->id);
+        $this->actingAs($this->admin)->delete('/fotos/'.Photo::sole()->id);
 
         $this->assertSame(0, Graffiti::count());
         $this->assertSame(1, Tag::count());
@@ -178,5 +178,45 @@ class AdminTest extends TestCase
         ]);
 
         $this->assertFalse(User::firstWhere('username', 'pillo')->is_admin);
+    }
+
+    public function test_admin_can_make_and_remove_curators(): void
+    {
+        $user = User::factory()->create(['username' => 'ojo']);
+
+        $this->actingAs($this->admin)->get('/admin/usuarios')->assertSee('Hacer curador');
+        $this->actingAs($this->admin)->post("/admin/usuarios/{$user->id}/curador")->assertRedirect();
+        $this->assertTrue($user->fresh()->is_curator);
+        $this->actingAs($this->admin)->get('/admin/usuarios')->assertSee('Quitar curador');
+
+        $this->actingAs($this->admin)->post("/admin/usuarios/{$user->id}/curador");
+        $this->assertFalse($user->fresh()->is_curator);
+
+        $this->actingAs($user)->post("/admin/usuarios/{$user->id}/curador")->assertForbidden();
+        $this->assertFalse($user->fresh()->is_curator);
+    }
+
+    public function test_curators_can_delete_photos_but_not_open_the_panel(): void
+    {
+        $curator = User::factory()->create();
+        $curator->forceFill(['is_curator' => true])->save();
+        $user = User::factory()->create();
+        $this->register($user, 'KASE');
+        $this->register($user, 'KASE');
+        [$first, $second] = Photo::orderBy('id')->get()->all();
+        $tag = Tag::sole();
+
+        $this->actingAs($curator)->get('/admin')->assertForbidden();
+        $this->actingAs($curator)->get('/')->assertDontSee('Administrar');
+        $this->actingAs($user)->get("/tags/{$tag->id}")->assertDontSee('Borrar');
+        $this->actingAs($user)->get("/fotos/{$first->id}")->assertDontSee('Borrar foto');
+        $this->actingAs($curator)->get("/tags/{$tag->id}")->assertSee('Borrar')->assertDontSee('Borrar tag');
+        $this->actingAs($curator)->get("/fotos/{$first->id}")->assertSee('Borrar foto');
+
+        $this->actingAs($curator)->delete("/fotos/{$first->id}")->assertRedirect("/tags/{$tag->id}");
+        $this->assertModelMissing($first);
+
+        $this->actingAs($user)->delete("/fotos/{$second->id}")->assertForbidden();
+        $this->assertModelExists($second);
     }
 }

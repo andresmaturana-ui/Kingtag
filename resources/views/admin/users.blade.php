@@ -13,7 +13,7 @@
 
     @forelse ($users as $u)
         <article class="admin-item">
-            <span class="admin-title">{{ $u->username }}@if ($u->is_admin) <span class="badge">admin</span>@endif</span>
+            <span class="admin-title">{{ $u->username }}@if ($u->is_admin) <span class="badge">admin</span>@endif @if ($u->is_curator) <span class="badge">curador</span>@endif</span>
             <p class="muted small">
                 Desde {{ $u->created_at->format('d-m-Y') }} ·
                 {{ $u->tag ? 'Tag: '.$u->tag->text : 'Sin tag' }} ·
@@ -23,6 +23,10 @@
                 <form method="POST" action="{{ route('admin.users.password', $u) }}" data-confirm="¿Crear una clave nueva para {{ $u->username }}? La actual dejará de funcionar.">
                     @csrf
                     <button class="button secondary small-button">Nueva clave</button>
+                </form>
+                <form method="POST" action="{{ route('admin.users.curator', $u) }}" data-confirm="{{ $u->is_curator ? "¿Quitarle el rol de curador a {$u->username}?" : "¿Hacer curador a {$u->username}? Podrá borrar fotos que no van con la línea editorial." }}">
+                    @csrf
+                    <button class="button secondary small-button">{{ $u->is_curator ? 'Quitar curador' : 'Hacer curador' }}</button>
                 </form>
                 @unless ($u->is(auth()->user()))
                     <form method="POST" action="{{ route('admin.users.delete', $u) }}" data-confirm="¿Borrar la cuenta {{ $u->username }}? Sus fotos se mantienen y su tag queda sin dueño.">

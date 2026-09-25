@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\ContactMessage;
-use App\Models\Photo;
 use App\Models\Tag;
 use App\Models\User;
 use App\Services\Moderation;
@@ -77,13 +76,6 @@ class AdminController extends Controller
         return back()->with('status', "El tag {$tag->text} quedó sin dueño.");
     }
 
-    public function deletePhoto(Photo $photo): RedirectResponse
-    {
-        $this->moderation->deletePhoto($photo);
-
-        return back()->with('status', 'Foto borrada.');
-    }
-
     public function users(Request $request): View
     {
         $q = trim((string) $request->query('q', ''));
@@ -106,6 +98,18 @@ class AdminController extends Controller
         $user->update(['password' => $password]);
 
         return back()->with('status', "Nueva clave para {$user->username}: {$password}");
+    }
+
+    /**
+     * Da o quita el rol de curador: puede borrar fotos, pero no entra al panel.
+     */
+    public function toggleCurator(User $user): RedirectResponse
+    {
+        $user->forceFill(['is_curator' => ! $user->is_curator])->save();
+
+        return back()->with('status', $user->is_curator
+            ? "{$user->username} ahora es curador."
+            : "{$user->username} ya no es curador.");
     }
 
     public function deleteUser(Request $request, User $user): RedirectResponse

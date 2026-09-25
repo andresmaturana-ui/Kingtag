@@ -19,7 +19,8 @@
     </a>
 
     <p class="muted small">
-        Para borrar una foto, entra al perfil del tag: con tu cuenta de administrador verás un botón
-        «Borrar» sobre cada foto.
+        Para borrar una foto, entra al perfil del tag o a la foto: con tu cuenta de administrador verás
+        un botón «Borrar». Los curadores (se nombran en Usuarios) también ven ese botón, pero no
+        entran a este panel.
     </p>
 @endsection

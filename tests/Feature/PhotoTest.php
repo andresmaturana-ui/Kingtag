@@ -82,7 +82,7 @@ class PhotoTest extends TestCase
 
         $admin = User::factory()->create();
         $admin->forceFill(['is_admin' => true])->save();
-        $this->actingAs($admin)->delete("/admin/fotos/{$this->photo->id}");
+        $this->actingAs($admin)->delete("/fotos/{$this->photo->id}");
 
         $this->assertSame(0, Comment::count());
         $this->assertDatabaseCount('photo_likes', 0);
