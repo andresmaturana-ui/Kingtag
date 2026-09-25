@@ -96,14 +96,24 @@ img { max-width: 100%; display: block; }
 .photo-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 12px; }
 .photo-actions > * { white-space: nowrap; }
 .photo-delete { margin-left: auto; }
-.like {
+/* King (corona) y Toy */
+.votes { display: flex; gap: 8px; }
+.vote {
     display: inline-flex; align-items: center; gap: 6px; font: inherit; font-weight: 700;
     color: var(--text); background: var(--panel); border: 1px solid var(--line); border-radius: 999px;
-    padding: 8px 14px; cursor: pointer; text-decoration: none;
+    padding: 8px 14px; cursor: pointer; text-decoration: none; white-space: nowrap;
 }
-.like span { font-size: 1.2rem; line-height: 1; }
-.like.liked { border-color: var(--danger); }
-.like.liked span { color: var(--danger); }
+.vote .crown { width: 1.2em; height: 1.2em; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linejoin: round; }
+.vote .crown rect { fill: currentColor; stroke: none; }
+.vote .vote-label { text-transform: uppercase; letter-spacing: .03em; }
+.vote.king.on { border-color: var(--accent); color: var(--accent); }
+.vote.king.on .crown { fill: currentColor; }
+.vote.toy.on { border-color: var(--danger); color: var(--danger); }
+.votes.compact { gap: 3px; padding: 3px 0 6px; }
+.votes.compact form { flex: 1; }
+.votes.compact .vote { width: 100%; justify-content: center; gap: 3px; padding: 4px 2px; font-size: .72rem; border-radius: 6px; }
+.votes.compact .king .vote-label { display: none; }
+.votes.compact > a.vote { flex: 1; }
 .comment { padding: 8px 0; border-bottom: 1px solid var(--line); }
 .comment p { margin: 2px 0; word-break: break-word; }
 .comment-form { margin: 12px 0 20px; }
@@ -174,7 +184,7 @@ textarea { resize: vertical; }
 .feed-delete { font: inherit; font-size: .75rem; font-weight: 800; background: var(--danger); color: #fff; border: 0; border-radius: 6px; padding: 4px 8px; cursor: pointer; }
 .feed a { position: relative; color: var(--text); text-decoration: none; }
 .feed img { width: 100%; aspect-ratio: 1; object-fit: cover; }
-.feed span { position: absolute; left: 0; right: 0; bottom: 0; padding: 4px 6px; font-size: .75rem; background: rgba(0, 0, 0, .6); }
+.feed a > span { position: absolute; left: 0; right: 0; bottom: 0; padding: 4px 6px; font-size: .75rem; background: rgba(0, 0, 0, .6); }
 .feed.carousel { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
 .feed.carousel::-webkit-scrollbar { display: none; }
 .feed.carousel a { flex: 0 0 calc((100% - 6px) / 3); scroll-snap-align: start; }
@@ -268,7 +278,7 @@ textarea { resize: vertical; }
     a { color: var(--text); text-decoration: none; }
 }
 
-/* Cazar tag: sugerencias de tags cercanos y lectura con IA */
+/* Spotting: sugerencias de tags cercanos y lectura con IA */
 .tag-suggest { margin: -4px 0 4px; }
 .tag-suggest p { margin: 0 0 6px; }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; }

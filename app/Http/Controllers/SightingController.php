@@ -12,7 +12,7 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 /**
- * "Cazar Tag": cualquier usuario fotografía un tag en la calle.
+ * "Spotting": cualquier usuario fotografía un tag en la calle.
  */
 class SightingController extends Controller
 {

@@ -5,8 +5,8 @@
         <p class="tagline">Los tags de la ciudad, en un mapa.</p>
 
         <nav class="home-buttons">
-            <a class="home-button" href="{{ route('my-tag.create') }}">Crear Tag</a>
-            <a class="home-button accent" href="{{ route('sightings.create') }}">Cazar Tag</a>
+            <a class="home-button" href="{{ route('my-tag.create') }}">Going Up</a>
+            <a class="home-button accent" href="{{ route('sightings.create') }}">Spotting</a>
             <a class="home-button" href="{{ route('search') }}">Buscar Tags</a>
         </nav>
     </section>
@@ -15,10 +15,13 @@
     @if ($photos->isNotEmpty())
         <div class="feed" data-feed>
             @foreach ($photos as $photo)
-                <a href="{{ route('photos.show', $photo) }}">
-                    <img src="{{ $photo->thumbUrl() }}" alt="Grafiti de {{ $photo->graffiti->tag->text }}" loading="lazy">
-                    <span>{{ $photo->graffiti->tag->text }}@if ($photo->likers_count) · ♥ {{ $photo->likers_count }}@endif</span>
-                </a>
+                <div class="feed-card">
+                    <a href="{{ route('photos.show', $photo) }}">
+                        <img src="{{ $photo->thumbUrl() }}" alt="Grafiti de {{ $photo->graffiti->tag->text }}" loading="lazy">
+                        <span>{{ $photo->graffiti->tag->text }}</span>
+                    </a>
+                    @include('partials.vote-buttons', ['compact' => true])
+                </div>
             @endforeach
         </div>
 
