@@ -110,7 +110,12 @@
             <ol>
                 <li>En el inicio toca el botón amarillo <span class="manual-key accent">Cazar Tag</span>.</li>
                 <li>Toca <strong>Sacar foto</strong>: se abre la cámara. Fotografía el tag completo.</li>
-                <li>Escribe <strong>qué dice el tag</strong>, tal como se lee.</li>
+                <li>Escribe <strong>qué dice el tag</strong>, tal como se lee. La app te ayuda de dos formas:
+                    <ul>
+                        <li>La inteligencia artificial mira tu foto y te dice <strong>"Parece que dice…"</strong>, y lo escribe por ti. Revisa que esté bien y corrígelo si hace falta.</li>
+                        <li>Abajo aparecen los tags que ya están registrados <strong>a menos de 100 metros</strong>. Si es uno de esos, tócalo y queda escrito igual.</li>
+                    </ul>
+                </li>
                 <li>Espera a que la app encuentre tu ubicación. Si te pregunta, dale permiso.</li>
                 <li>Toca <strong>Registrar</strong>.</li>
             </ol>
@@ -121,7 +126,7 @@
             </ul>
             <p class="manual-tip">Registra el tag donde está: la ubicación sale de tu teléfono en ese momento.</p>
         </div>
-        <figure class="manual-shots"><img src="/img/manual/04-registrar.jpg" alt="Pantalla Cazar Tag con una foto" loading="lazy" width="390" height="780"></figure>
+        <figure class="manual-shots"><img src="/img/manual/04-cazar-tag.jpg" alt="Pantalla Cazar Tag con la sugerencia de la IA y los tags cercanos" loading="lazy" width="390" height="780"></figure>
     </section>
 
     <section class="manual-step has-shot" id="tu-tag">
@@ -137,7 +142,7 @@
             <p>Si otras personas ya habían registrado grafitis con tu tag, pasan a tu perfil al tiro. Cada cuenta tiene un solo tag y cada tag un solo artista. Después puedes volver aquí para cambiar la foto, y ver tu perfil en el menú, en <strong>Mi perfil</strong>.</p>
             <p class="manual-tip">¿Alguien reclamó tu tag antes que tú? Escríbenos desde <strong>Contacto</strong> y lo revisamos.</p>
         </div>
-        <figure class="manual-shots"><img src="/img/manual/05-ingresa-tu-tag.jpg" alt="Pantalla Crear Tag" loading="lazy" width="390" height="780"></figure>
+        <figure class="manual-shots"><img src="/img/manual/05-crear-tag.jpg" alt="Pantalla Crear Tag" loading="lazy" width="390" height="780"></figure>
     </section>
 
     <section class="manual-step has-shot" id="pagina-tag">
@@ -159,14 +164,14 @@
             <h2><b>7</b> Buscar Tags</h2>
             <p>Toca <span class="manual-key">Buscar Tags</span> en el inicio o <strong>Buscar</strong> en el menú. Hay tres formas de buscar:</p>
             <ul>
+                <li><strong>Cerca de ti:</strong> arriba, antes del mapa, aparecen los grafitis a menos de 100 metros de donde estás, del más cercano al más lejano, con la distancia. Se ven tres a la vez: desliza con el dedo hacia el lado para ver los demás.</li>
                 <li><strong>Por nombre:</strong> escribe parte del tag y toca Buscar. Verás los tags que coinciden y cuántos grafitis tiene cada uno.</li>
                 <li><strong>En el mapa:</strong> cada círculo es un grafiti con su foto. Mueve el mapa, acerca con dos dedos y toca un círculo para ir a ese tag.</li>
-                <li><strong>Cerca de ti:</strong> más abajo aparecen los grafitis a menos de 100 metros de donde estás, del más cercano al más lejano, con la distancia.</li>
             </ul>
         </div>
         <figure class="manual-shots">
-            <img src="/img/manual/08-buscar.jpg" alt="Buscar por nombre y mapa" loading="lazy" width="390" height="780">
-            <img src="/img/manual/09-cerca.jpg" alt="Grafitis cerca de ti" loading="lazy" width="390" height="780">
+            <img src="/img/manual/08-buscar.jpg" alt="Buscar Tags con Cerca de ti y el mapa" loading="lazy" width="390" height="780">
+            <img src="/img/manual/09-buscar-nombre.jpg" alt="Resultados de buscar por nombre" loading="lazy" width="390" height="780">
         </figure>
     </section>
 
@@ -213,6 +218,9 @@
 
             <dt>Olvidé mi clave.</dt>
             <dd>Escríbenos desde <strong>Contacto</strong> con tu usuario y te damos una clave nueva.</dd>
+
+            <dt>La app leyó mal el tag de mi foto.</dt>
+            <dd>La lectura de la inteligencia artificial es solo una sugerencia. Borra el texto y escribe lo que dice de verdad antes de tocar Registrar. Si no alcanza a leerlo, te avisa y lo escribes tú.</dd>
 
             <dt>Registré un tag con el texto mal escrito.</dt>
             <dd>Escríbenos desde <strong>Contacto</strong> y lo revisamos.</dd>
