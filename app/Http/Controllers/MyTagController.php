@@ -12,7 +12,7 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 /**
- * "Ingresa tu tag": el artista reclama su tag para que todos los grafitis
+ * "Crear Tag": el artista reclama su tag para que todos los grafitis
  * registrados con ese texto aparezcan en su perfil.
  */
 class MyTagController extends Controller

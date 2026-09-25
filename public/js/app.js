@@ -43,7 +43,7 @@ document.querySelectorAll('[data-photo-form]').forEach((form) => {
     });
 });
 
-// Ubicación para "Registrar tag"
+// Ubicación para "Cazar Tag"
 document.querySelectorAll('[data-geo-form]').forEach((form) => {
     const lat = form.querySelector('[data-lat]');
     const lng = form.querySelector('[data-lng]');

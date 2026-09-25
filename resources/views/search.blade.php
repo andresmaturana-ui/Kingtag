@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Buscar')
+@section('title', 'Buscar Tags')
 
 @include('partials.leaflet')
 
 @section('content')
-    <h1>Buscar tag</h1>
+    <h1>Buscar Tags</h1>
 
     <form method="GET" action="{{ route('search') }}" class="search-form">
         <input name="q" value="{{ $q }}" placeholder="¿Qué dice el tag?" autocapitalize="characters" aria-label="Buscar por texto">

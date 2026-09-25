@@ -31,10 +31,10 @@
         <a href="#dinamica"><b>1</b> Qué es {{ $name }}</a>
         <a href="#cuenta"><b>2</b> Crea tu cuenta</a>
         <a href="#inicio"><b>3</b> El inicio y el menú</a>
-        <a href="#registrar"><b>4</b> Registra un tag</a>
-        <a href="#tu-tag"><b>5</b> Ingresa tu tag</a>
+        <a href="#registrar"><b>4</b> Cazar Tag</a>
+        <a href="#tu-tag"><b>5</b> Crear Tag</a>
         <a href="#pagina-tag"><b>6</b> La página de cada tag</a>
-        <a href="#buscar"><b>7</b> Busca tags</a>
+        <a href="#buscar"><b>7</b> Buscar Tags</a>
         <a href="#ranking"><b>8</b> El ranking</a>
         <a href="#fotos"><b>9</b> Me gusta y comentarios</a>
         <a href="#instalar"><b>10</b> Instala la app</a>
@@ -105,7 +105,7 @@
 
     <section class="manual-step has-shot" id="registrar">
         <div class="manual-text">
-            <h2><b>4</b> Registra un tag</h2>
+            <h2><b>4</b> Cazar Tag</h2>
             <p>Viste un tag en una muralla. Párate frente a él y:</p>
             <ol>
                 <li>En el inicio toca el botón amarillo <span class="manual-key accent">Cazar Tag</span>.</li>
@@ -121,12 +121,12 @@
             </ul>
             <p class="manual-tip">Registra el tag donde está: la ubicación sale de tu teléfono en ese momento.</p>
         </div>
-        <figure class="manual-shots"><img src="/img/manual/04-registrar.jpg" alt="Pantalla Registrar tag con una foto" loading="lazy" width="390" height="780"></figure>
+        <figure class="manual-shots"><img src="/img/manual/04-registrar.jpg" alt="Pantalla Cazar Tag con una foto" loading="lazy" width="390" height="780"></figure>
     </section>
 
     <section class="manual-step has-shot" id="tu-tag">
         <div class="manual-text">
-            <h2><b>5</b> Ingresa tu tag</h2>
+            <h2><b>5</b> Crear Tag</h2>
             <p>Si pintas, reclama tu firma para que todos sus grafitis queden a tu nombre.</p>
             <ol>
                 <li>En el inicio toca <span class="manual-key">Crear Tag</span>.</li>
@@ -137,7 +137,7 @@
             <p>Si otras personas ya habían registrado grafitis con tu tag, pasan a tu perfil al tiro. Cada cuenta tiene un solo tag y cada tag un solo artista. Después puedes volver aquí para cambiar la foto, y ver tu perfil en el menú, en <strong>Mi perfil</strong>.</p>
             <p class="manual-tip">¿Alguien reclamó tu tag antes que tú? Escríbenos desde <strong>Contacto</strong> y lo revisamos.</p>
         </div>
-        <figure class="manual-shots"><img src="/img/manual/05-ingresa-tu-tag.jpg" alt="Pantalla Ingresa tu tag" loading="lazy" width="390" height="780"></figure>
+        <figure class="manual-shots"><img src="/img/manual/05-ingresa-tu-tag.jpg" alt="Pantalla Crear Tag" loading="lazy" width="390" height="780"></figure>
     </section>
 
     <section class="manual-step has-shot" id="pagina-tag">
@@ -156,7 +156,7 @@
 
     <section class="manual-step has-shot two" id="buscar">
         <div class="manual-text">
-            <h2><b>7</b> Busca tags</h2>
+            <h2><b>7</b> Buscar Tags</h2>
             <p>Toca <span class="manual-key">Buscar Tags</span> en el inicio o <strong>Buscar</strong> en el menú. Hay tres formas de buscar:</p>
             <ul>
                 <li><strong>Por nombre:</strong> escribe parte del tag y toca Buscar. Verás los tags que coinciden y cuántos grafitis tiene cada uno.</li>

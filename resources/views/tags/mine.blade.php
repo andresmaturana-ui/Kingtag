@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title', 'Ingresa tu tag')
+@section('title', 'Crear Tag')
 
 @section('content')
-    <h1>Ingresa tu tag</h1>
+    <h1>Crear Tag</h1>
 
     @if ($tag)
         <p class="muted">Tu tag es <a href="{{ route('tags.show', $tag) }}"><strong>{{ $tag->text }}</strong></a>. Aquí puedes cambiar su foto.</p>

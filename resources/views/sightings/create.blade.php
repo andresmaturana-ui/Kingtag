@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title', 'Registrar tag')
+@section('title', 'Cazar Tag')
 
 @section('content')
-    <h1>Registrar tag</h1>
+    <h1>Cazar Tag</h1>
     <p class="muted">Sácale una foto al tag en la muralla y escribe lo que dice. Guardamos dónde estás para ponerlo en el mapa.</p>
 
     @include('partials.errors')
