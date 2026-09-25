@@ -52,6 +52,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/registrar', [SightingController::class, 'create'])->name('sightings.create');
     // Máximo 30 registros por hora por usuario, para frenar el spam.
     Route::post('/registrar', [SightingController::class, 'store'])->name('sightings.store')->middleware('throttle:30,60');
+    // La IA lee el tag de la foto. Cada lectura cuesta, así que hay un tope por usuario.
+    Route::post('/registrar/leer-tag', [SightingController::class, 'read'])->name('sightings.read')->middleware('throttle:30,60');
 });
 
 // Panel de administración. Se entra con una cuenta marcada como admin:

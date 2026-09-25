@@ -267,3 +267,12 @@ textarea { resize: vertical; }
     .manual-step.two .manual-shots img { width: calc(50% - 2mm); }
     a { color: var(--text); text-decoration: none; }
 }
+
+/* Cazar tag: sugerencias de tags cercanos y lectura con IA */
+.tag-suggest { margin: -4px 0 4px; }
+.tag-suggest p { margin: 0 0 6px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font: inherit; font-weight: 700; background: transparent; color: var(--text); border: 1px solid var(--accent); border-radius: 999px; padding: 6px 12px; cursor: pointer; }
+.chip.selected { background: var(--accent); color: var(--accent-ink); }
+.tag-reader { margin: 0; }
+.tag-reader strong { color: var(--accent); }
