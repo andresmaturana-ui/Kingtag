@@ -249,6 +249,10 @@ textarea { resize: vertical; }
     .manual-cover { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; height: 265mm; text-align: center; break-after: page; }
     .manual-cover img { width: 70mm; height: auto; }
     .manual-cover-title { font-family: var(--display); font-size: 2.6rem; color: var(--accent); margin: 18px 0 0; }
+    .manual-qr { margin-top: 18mm; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+    .manual-qr img { width: 42mm; height: 42mm; border: 3px solid var(--accent); border-radius: 10px; }
+    .manual-qr p { margin: 0; color: var(--muted); }
+    .manual-qr strong { color: var(--accent); font-size: 1.2rem; }
     .manual-step { break-inside: avoid; }
     .manual-intro { break-after: page; }
     .manual-step.has-shot { display: grid; grid-template-columns: 1fr 58mm; gap: 8mm; align-items: start; }

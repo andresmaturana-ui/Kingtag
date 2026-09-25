@@ -16,7 +16,10 @@
         <img src="/img/logo.svg" alt="{{ $name }}" width="258" height="108">
         <p class="manual-cover-title">Manual de uso</p>
         <p class="muted">Los tags de la ciudad, en un mapa.</p>
-        <p class="muted small">tagking.cl</p>
+        <div class="manual-qr">
+            <img src="/img/qr-tagking.svg" alt="Código QR a tagking.cl" width="140" height="140">
+            <p>Escanea para abrir la app<br><strong>tagking.cl</strong></p>
+        </div>
     </section>
 
     <h1>Cómo usar {{ $name }}</h1>
