@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ManifestController;
 use App\Http\Controllers\MapController;
 use App\Http\Controllers\MyTagController;
 use App\Http\Controllers\PhotoController;
@@ -23,6 +24,8 @@ Route::get('/mapa/grafitis', [MapController::class, 'graffitis'])->name('map.gra
 Route::get('/mapa/cerca', [MapController::class, 'nearby'])->name('map.nearby');
 
 Route::view('/ayuda', 'help')->name('help');
+
+Route::get('/manifest.webmanifest', ManifestController::class)->name('manifest');
 
 Route::get('/contacto', [ContactController::class, 'create'])->name('contact');
 Route::post('/contacto', [ContactController::class, 'store'])->name('contact.store')->middleware('throttle:5,60');
