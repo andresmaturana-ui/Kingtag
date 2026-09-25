@@ -27,10 +27,11 @@
         @endforelse
     @endif
 
-    <h2>Mapa</h2>
-    <div class="map tall" data-map data-live></div>
-
     <h2>Cerca de ti</h2>
     <p class="muted small" data-nearby-status>Buscando tu ubicación…</p>
-    <div class="feed" data-nearby></div>
+    {{-- Se ven 3 a la vez; si hay más, se deslizan hacia el lado --}}
+    <div class="feed carousel" data-nearby></div>
+
+    <h2>Mapa</h2>
+    <div class="map tall" data-map data-live></div>
 @endsection
