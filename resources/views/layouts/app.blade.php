@@ -6,6 +6,13 @@
     <meta name="theme-color" content="#111111">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@hasSection('title')@yield('title') · @endif{{ config('kingtag.name') }}</title>
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="{{ config('kingtag.name') }}">
+    <meta property="og:title" content="@hasSection('title')@yield('title')@else{{ config('kingtag.name') }}@endif">
+    <meta property="og:description" content="Los tags de la ciudad, en un mapa.">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:image" content="{{ asset('img/og-image.jpg') }}">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="manifest" href="/manifest.webmanifest">
     <link rel="icon" href="/icons/icon-192.png">
     <link rel="apple-touch-icon" href="/icons/icon-192.png">

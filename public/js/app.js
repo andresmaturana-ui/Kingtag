@@ -83,3 +83,41 @@ document.addEventListener('submit', (e) => {
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js'));
 }
+
+// Inicio: el feed "Lo último" trae más fotos solo, al acercarse al final
+(() => {
+    const feed = document.querySelector('[data-feed]');
+    const more = document.querySelector('[data-feed-more]');
+    if (!feed || !more || !('IntersectionObserver' in window)) return;
+
+    let loading = false;
+    const observer = new IntersectionObserver(async (entries) => {
+        const link = more.querySelector('a');
+        if (!entries[0].isIntersecting || loading || !link) return;
+        loading = true;
+        link.textContent = 'Cargando…';
+        try {
+            const res = await fetch(link.href, { headers: { Accept: 'text/html' } });
+            if (!res.ok) throw new Error(res.status);
+            const page = new DOMParser().parseFromString(await res.text(), 'text/html');
+            page.querySelectorAll('[data-feed] > *').forEach((item) => feed.append(item));
+            const next = page.querySelector('[data-feed-more] a');
+            if (next) {
+                link.href = next.href;
+                link.textContent = 'Ver más';
+                // Si el final sigue a la vista, esto hace que se pida la página siguiente.
+                observer.unobserve(more);
+                observer.observe(more);
+            } else {
+                observer.disconnect();
+                more.remove();
+            }
+        } catch {
+            // Sin señal: queda el botón para intentarlo a mano.
+            link.textContent = 'Ver más';
+        }
+        loading = false;
+    }, { rootMargin: '600px 0px' });
+
+    observer.observe(more);
+})();

@@ -13,7 +13,7 @@
 
     <h2>Lo último</h2>
     @if ($photos->isNotEmpty())
-        <div class="feed">
+        <div class="feed" data-feed>
             @foreach ($photos as $photo)
                 <a href="{{ route('photos.show', $photo) }}">
                     <img src="{{ $photo->thumbUrl() }}" alt="Grafiti de {{ $photo->graffiti->tag->text }}" loading="lazy">
@@ -23,7 +23,7 @@
         </div>
 
         @if ($photos->hasMorePages())
-            <p class="more"><a class="button secondary" href="{{ $photos->nextPageUrl() }}">Ver más</a></p>
+            <p class="more" data-feed-more><a class="button secondary" href="{{ $photos->nextPageUrl() }}">Ver más</a></p>
         @endif
     @else
         <p class="muted">Todavía no hay grafitis. ¡Registra el primero!</p>
