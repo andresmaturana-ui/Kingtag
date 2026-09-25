@@ -48,8 +48,8 @@
                     <a href="{{ route('photos.show', $photo) }}">
                         <img src="{{ $photo->thumbUrl() }}" alt="Grafiti de {{ $tag->text }}" loading="lazy">
                     </a>
-                    @if ($isAdmin)
-                        <form method="POST" action="{{ route('admin.photos.delete', $photo) }}" data-confirm="¿Borrar esta foto? No se puede deshacer.">
+                    @if ($canModerate)
+                        <form method="POST" action="{{ route('photos.delete', $photo) }}" data-confirm="¿Borrar esta foto? No se puede deshacer.">
                             @csrf
                             @method('DELETE')
                             <button class="feed-delete">Borrar</button>

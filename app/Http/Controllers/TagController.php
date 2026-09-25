@@ -32,6 +32,7 @@ class TagController extends Controller
             'photos' => $tag->photos()->latest('photos.id')->limit(60)->get(),
             'rank' => $ranking->around($tag),
             'isAdmin' => (bool) $request->user()?->is_admin,
+            'canModerate' => (bool) $request->user()?->canModerate(),
         ]);
     }
 

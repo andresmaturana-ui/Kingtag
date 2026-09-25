@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use App\Models\Photo;
+use App\Services\Moderation;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -22,6 +23,7 @@ class PhotoController extends Controller
             'photo' => $photo,
             'tag' => $photo->graffiti->tag,
             'liked' => $request->user() && $photo->likers()->whereKey($request->user()->id)->exists(),
+            'canModerate' => (bool) $request->user()?->canModerate(),
         ]);
     }
 
@@ -42,6 +44,20 @@ class PhotoController extends Controller
         $photo->comments()->create($data + ['user_id' => $request->user()->id]);
 
         return redirect(route('photos.show', $photo).'#comentarios');
+    }
+
+    /**
+     * Borra una foto: lo pueden hacer los administradores y los curadores.
+     * Vuelve al perfil del tag, porque la foto ya no existe.
+     */
+    public function destroy(Request $request, Photo $photo, Moderation $moderation): RedirectResponse
+    {
+        abort_unless($request->user()->canModerate(), 403);
+
+        $tag = $photo->graffiti->tag;
+        $moderation->deletePhoto($photo);
+
+        return redirect()->route('tags.show', $tag)->with('status', 'Foto borrada.');
     }
 
     /**

@@ -47,6 +47,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/fotos/{photo}/me-gusta', [PhotoController::class, 'like'])->name('photos.like')->middleware('throttle:60,1');
     Route::post('/fotos/{photo}/comentarios', [PhotoController::class, 'comment'])->name('photos.comment')->middleware('throttle:20,60');
     Route::delete('/comentarios/{comment}', [PhotoController::class, 'deleteComment'])->name('comments.delete');
+    Route::delete('/fotos/{photo}', [PhotoController::class, 'destroy'])->name('photos.delete');
 
     Route::get('/registrar', [SightingController::class, 'create'])->name('sightings.create');
     // Máximo 30 registros por hora por usuario, para frenar el spam.
@@ -65,9 +66,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/tags', [AdminController::class, 'tags'])->name('tags');
     Route::delete('/tags/{tag}', [AdminController::class, 'deleteTag'])->name('tags.delete');
     Route::post('/tags/{tag}/liberar', [AdminController::class, 'unclaimTag'])->name('tags.unclaim');
-    Route::delete('/fotos/{photo}', [AdminController::class, 'deletePhoto'])->name('photos.delete');
 
     Route::get('/usuarios', [AdminController::class, 'users'])->name('users');
     Route::post('/usuarios/{user}/clave', [AdminController::class, 'resetPassword'])->name('users.password');
+    Route::post('/usuarios/{user}/curador', [AdminController::class, 'toggleCurator'])->name('users.curator');
     Route::delete('/usuarios/{user}', [AdminController::class, 'deleteUser'])->name('users.delete');
 });

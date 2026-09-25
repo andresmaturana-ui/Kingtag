@@ -23,6 +23,13 @@
             <a class="like" href="{{ route('login') }}"><span aria-hidden="true">♡</span> Me gusta</a>
         @endauth
         <span class="muted">{{ $photo->likers_count }} me gusta</span>
+        @if ($canModerate)
+            <form method="POST" action="{{ route('photos.delete', $photo) }}" data-confirm="¿Borrar esta foto? No se puede deshacer." class="photo-delete">
+                @csrf
+                @method('DELETE')
+                <button class="button danger small-button">Borrar foto</button>
+            </form>
+        @endif
     </div>
 
     <h2 id="comentarios">Comentarios</h2>

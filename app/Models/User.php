@@ -27,7 +27,17 @@ class User extends Authenticatable
         return [
             'password' => 'hashed',
             'is_admin' => 'boolean',
+            'is_curator' => 'boolean',
         ];
+    }
+
+    /**
+     * Admins y curadores pueden borrar fotos que no van con la línea
+     * editorial. Solo los admins entran al panel de administración.
+     */
+    public function canModerate(): bool
+    {
+        return $this->is_admin || $this->is_curator;
     }
 
     /**
