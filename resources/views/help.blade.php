@@ -31,12 +31,12 @@
         <a href="#dinamica"><b>1</b> Qué es {{ $name }}</a>
         <a href="#cuenta"><b>2</b> Crea tu cuenta</a>
         <a href="#inicio"><b>3</b> El inicio y el menú</a>
-        <a href="#registrar"><b>4</b> Cazar Tag</a>
-        <a href="#tu-tag"><b>5</b> Crear Tag</a>
+        <a href="#registrar"><b>4</b> Spotting</a>
+        <a href="#tu-tag"><b>5</b> Going Up</a>
         <a href="#pagina-tag"><b>6</b> La página de cada tag</a>
         <a href="#buscar"><b>7</b> Buscar Tags</a>
         <a href="#ranking"><b>8</b> El ranking</a>
-        <a href="#fotos"><b>9</b> Me gusta y comentarios</a>
+        <a href="#fotos"><b>9</b> King, Toy y comentarios</a>
         <a href="#instalar"><b>10</b> Instala la app</a>
         <a href="#preguntas"><b>11</b> Preguntas frecuentes</a>
     </nav>
@@ -73,7 +73,7 @@
     <section class="manual-step has-shot" id="cuenta">
         <div class="manual-text">
             <h2><b>2</b> Crea tu cuenta</h2>
-            <p>Mirar el mapa, el ranking y las fotos es libre. Para registrar tags, reclamar el tuyo, dar me gusta o comentar necesitas una cuenta.</p>
+            <p>Mirar el mapa, el ranking y las fotos es libre. Para registrar tags, reclamar el tuyo, dar King o Toy, o comentar necesitas una cuenta.</p>
             <ol>
                 <li>Abre el menú <span class="manual-key">☰</span> arriba a la derecha y toca <strong>Crear cuenta</strong>.</li>
                 <li>Elige un <strong>usuario</strong> de 3 a 30 letras.</li>
@@ -90,11 +90,11 @@
             <h2><b>3</b> El inicio y el menú</h2>
             <p>Al abrir {{ $name }} ves tres botones:</p>
             <ul>
-                <li><span class="manual-key">Crear Tag</span> para reclamar tu firma si eres artista.</li>
-                <li><span class="manual-key accent">Cazar Tag</span> para subir un tag que viste en la calle.</li>
+                <li><span class="manual-key">Going Up</span> para reclamar tu firma si eres artista.</li>
+                <li><span class="manual-key accent">Spotting</span> para subir un tag que viste en la calle.</li>
                 <li><span class="manual-key">Buscar Tags</span> para buscar por nombre o en el mapa.</li>
             </ul>
-            <p>Abajo, <strong>Lo último</strong> muestra las fotos más nuevas. Baja con el dedo y se siguen cargando.</p>
+            <p>Abajo, <strong>Lo último</strong> muestra las fotos más nuevas, cada una con sus botones <strong>👑 King</strong> y <strong>Toy</strong>. Baja con el dedo y se siguen cargando.</p>
             <p>El menú <span class="manual-key">☰</span> tiene todo lo demás: Buscar, Ranking, esta Ayuda, Contacto, tu perfil y Salir.</p>
         </div>
         <figure class="manual-shots">
@@ -105,10 +105,10 @@
 
     <section class="manual-step has-shot" id="registrar">
         <div class="manual-text">
-            <h2><b>4</b> Cazar Tag</h2>
+            <h2><b>4</b> Spotting</h2>
             <p>Viste un tag en una muralla. Párate frente a él y:</p>
             <ol>
-                <li>En el inicio toca el botón amarillo <span class="manual-key accent">Cazar Tag</span>.</li>
+                <li>En el inicio toca el botón amarillo <span class="manual-key accent">Spotting</span>.</li>
                 <li>Toca <strong>Sacar foto</strong>: se abre la cámara. Fotografía el tag completo.</li>
                 <li>Escribe <strong>qué dice el tag</strong>, tal como se lee. La app te ayuda de dos formas:
                     <ul>
@@ -126,15 +126,15 @@
             </ul>
             <p class="manual-tip">Registra el tag donde está: la ubicación sale de tu teléfono en ese momento.</p>
         </div>
-        <figure class="manual-shots"><img src="/img/manual/04-cazar-tag.jpg" alt="Pantalla Cazar Tag con la sugerencia de la IA y los tags cercanos" loading="lazy" width="390" height="780"></figure>
+        <figure class="manual-shots"><img src="/img/manual/04-cazar-tag.jpg" alt="Pantalla Spotting con la sugerencia de la IA y los tags cercanos" loading="lazy" width="390" height="780"></figure>
     </section>
 
     <section class="manual-step has-shot" id="tu-tag">
         <div class="manual-text">
-            <h2><b>5</b> Crear Tag</h2>
+            <h2><b>5</b> Going Up</h2>
             <p>Si pintas, reclama tu firma para que todos sus grafitis queden a tu nombre.</p>
             <ol>
-                <li>En el inicio toca <span class="manual-key">Crear Tag</span>.</li>
+                <li>En el inicio toca <span class="manual-key">Going Up</span>.</li>
                 <li>Escribe tu tag.</li>
                 <li>Agrega una foto para tu perfil: sácala en el momento o elígela de la galería.</li>
                 <li>Toca <strong>Reclamar mi tag</strong>.</li>
@@ -142,7 +142,7 @@
             <p>Si otras personas ya habían registrado grafitis con tu tag, pasan a tu perfil al tiro. Cada cuenta tiene un solo tag y cada tag un solo artista. Después puedes volver aquí para cambiar la foto, y ver tu perfil en el menú, en <strong>Mi perfil</strong>.</p>
             <p class="manual-tip">¿Alguien reclamó tu tag antes que tú? Escríbenos desde <strong>Contacto</strong> y lo revisamos.</p>
         </div>
-        <figure class="manual-shots"><img src="/img/manual/05-crear-tag.jpg" alt="Pantalla Crear Tag" loading="lazy" width="390" height="780"></figure>
+        <figure class="manual-shots"><img src="/img/manual/05-crear-tag.jpg" alt="Pantalla Going Up" loading="lazy" width="390" height="780"></figure>
     </section>
 
     <section class="manual-step has-shot" id="pagina-tag">
@@ -187,15 +187,18 @@
 
     <section class="manual-step has-shot" id="fotos">
         <div class="manual-text">
-            <h2><b>9</b> Me gusta y comentarios</h2>
-            <p>Toca cualquier foto para verla en grande.</p>
+            <h2><b>9</b> King, Toy y comentarios</h2>
+            <p>Cada foto tiene dos botones, en el inicio y al verla en grande:</p>
             <ul>
-                <li>Toca <strong>♡ Me gusta</strong> para darle tu me gusta. Tócalo de nuevo para quitarlo. Las fotos con me gusta muestran un ♥ en el inicio.</li>
+                <li><strong>👑 King</strong> si el tag te parece bueno.</li>
+                <li><strong>Toy</strong> si te parece malo.</li>
+                <li>Puedes dar uno de los dos, no ambos. Tócalo de nuevo para quitarlo. Al lado de cada botón ves cuántos King y Toy tiene la foto.</li>
+                <li>Toca cualquier foto para verla en grande.</li>
                 <li>Escribe abajo y toca <strong>Comentar</strong>. Puedes borrar tus propios comentarios.</li>
                 <li>Toca el nombre del tag para ir a su página.</li>
             </ul>
         </div>
-        <figure class="manual-shots"><img src="/img/manual/11-foto.jpg" alt="Foto con me gusta y comentarios" loading="lazy" width="390" height="780"></figure>
+        <figure class="manual-shots"><img src="/img/manual/11-foto.jpg" alt="Foto con los botones King y Toy y comentarios" loading="lazy" width="390" height="780"></figure>
     </section>
 
     <section class="manual-step" id="instalar">

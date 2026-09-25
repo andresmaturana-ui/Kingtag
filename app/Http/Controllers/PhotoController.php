@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use App\Models\Photo;
 use App\Services\Moderation;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -12,29 +13,41 @@ use Illuminate\View\View;
 class PhotoController extends Controller
 {
     /**
-     * Una foto en grande, con su tag, sus "me gusta" y sus comentarios.
+     * Una foto en grande, con su tag, sus King y Toy y sus comentarios.
      */
     public function show(Request $request, Photo $photo): View
     {
-        $photo->load(['graffiti.tag', 'comments' => fn ($q) => $q->with('user')->oldest('id')])
-            ->loadCount('likers');
+        $photo = Photo::withVotes($request->user())
+            ->with(['graffiti.tag', 'comments' => fn ($q) => $q->with('user')->oldest('id')])
+            ->findOrFail($photo->id);
 
         return view('photos.show', [
             'photo' => $photo,
             'tag' => $photo->graffiti->tag,
-            'liked' => $request->user() && $photo->likers()->whereKey($request->user()->id)->exists(),
             'canModerate' => (bool) $request->user()?->canModerate(),
         ]);
     }
 
     /**
-     * Da o quita el "me gusta".
+     * Da o quita el King o el Toy. Desde el inicio llega por JavaScript y
+     * responde los números nuevos; sin JavaScript vuelve a la página anterior.
      */
-    public function like(Request $request, Photo $photo): RedirectResponse
+    public function vote(Request $request, Photo $photo, string $vote): RedirectResponse|JsonResponse
     {
-        $photo->likers()->toggle($request->user()->id);
+        $photo->vote($request->user(), $vote);
 
-        return redirect()->route('photos.show', $photo);
+        if ($request->wantsJson()) {
+            $photo = Photo::withVotes($request->user())->findOrFail($photo->id);
+
+            return response()->json([
+                'king' => $photo->likers_count,
+                'toy' => $photo->toyers_count,
+                'kinged' => (bool) $photo->kinged,
+                'toyed' => (bool) $photo->toyed,
+            ]);
+        }
+
+        return redirect()->back(fallback: route('photos.show', $photo));
     }
 
     public function comment(Request $request, Photo $photo): RedirectResponse

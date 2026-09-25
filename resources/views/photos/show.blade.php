@@ -12,17 +12,7 @@
     </figure>
 
     <div class="photo-actions">
-        @auth
-            <form method="POST" action="{{ route('photos.like', $photo) }}">
-                @csrf
-                <button @class(['like', 'liked' => $liked]) aria-pressed="{{ $liked ? 'true' : 'false' }}">
-                    <span aria-hidden="true">{{ $liked ? '♥' : '♡' }}</span> Me gusta
-                </button>
-            </form>
-        @else
-            <a class="like" href="{{ route('login') }}"><span aria-hidden="true">♡</span> Me gusta</a>
-        @endauth
-        <span class="muted">{{ $photo->likers_count }} me gusta</span>
+        @include('partials.vote-buttons')
         @if ($canModerate)
             <form method="POST" action="{{ route('photos.delete', $photo) }}" data-confirm="¿Borrar esta foto? No se puede deshacer." class="photo-delete">
                 @csrf

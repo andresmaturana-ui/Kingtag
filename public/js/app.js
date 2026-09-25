@@ -43,7 +43,7 @@ document.querySelectorAll('[data-photo-form]').forEach((form) => {
     });
 });
 
-// Ubicación para "Cazar Tag"
+// Ubicación para "Spotting"
 document.querySelectorAll('[data-geo-form]').forEach((form) => {
     const lat = form.querySelector('[data-lat]');
     const lng = form.querySelector('[data-lng]');
@@ -79,7 +79,7 @@ document.querySelectorAll('[data-geo-form]').forEach((form) => {
     });
 });
 
-// Cazar tag: sugerir el texto del tag
+// Spotting: sugerir el texto del tag
 document.querySelectorAll('[data-geo-form]').forEach((form) => {
     const text = form.querySelector('[data-tag-text]');
     if (!text) return;
@@ -220,3 +220,28 @@ if ('serviceWorker' in navigator) {
 
     observer.observe(more);
 })();
+
+// King y Toy: se marcan sin recargar la página (así el feed no pierde el lugar)
+document.addEventListener('submit', async (e) => {
+    const form = e.target.closest('[data-vote]');
+    if (!form) return;
+    e.preventDefault();
+    const box = form.closest('[data-votes]');
+    try {
+        const res = await fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: { Accept: 'application/json' },
+        });
+        if (!res.ok) throw new Error(res.status);
+        const data = await res.json();
+        [['king', data.king, data.kinged], ['toy', data.toy, data.toyed]].forEach(([vote, count, on]) => {
+            const button = box.querySelector(`.vote.${vote}`);
+            button.classList.toggle('on', on);
+            button.setAttribute('aria-pressed', String(on));
+            button.querySelector('[data-count]').textContent = count;
+        });
+    } catch {
+        form.submit();
+    }
+});
