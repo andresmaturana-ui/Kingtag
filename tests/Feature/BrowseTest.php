@@ -36,6 +36,8 @@ class BrowseTest extends TestCase
         $this->get('/ranking')->assertOk();
         $this->get('/entrar')->assertOk();
         $this->get('/registro')->assertOk();
+        $this->get('/ayuda')->assertOk()->assertSee('Cómo usar TAGKING')->assertSee('/manual/manual-tagking.pdf');
+        $this->assertFileExists(public_path('manual/manual-tagking.pdf'));
     }
 
     public function test_home_shows_the_latest_photos_newest_first(): void

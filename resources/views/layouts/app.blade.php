@@ -33,6 +33,7 @@
         <a href="{{ route('home') }}">Inicio</a>
         <a href="{{ route('search') }}">Buscar</a>
         <a href="{{ route('ranking') }}">Ranking</a>
+        <a href="{{ route('help') }}">Ayuda</a>
         <a href="{{ route('contact') }}">Contacto</a>
         @auth
             <a href="{{ route('profile') }}">Mi perfil</a>

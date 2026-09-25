@@ -22,6 +22,8 @@ Route::get('/fotos/{photo}', [PhotoController::class, 'show'])->name('photos.sho
 Route::get('/mapa/grafitis', [MapController::class, 'graffitis'])->name('map.graffitis');
 Route::get('/mapa/cerca', [MapController::class, 'nearby'])->name('map.nearby');
 
+Route::view('/ayuda', 'help')->name('help');
+
 Route::get('/contacto', [ContactController::class, 'create'])->name('contact');
 Route::post('/contacto', [ContactController::class, 'store'])->name('contact.store')->middleware('throttle:5,60');
 
