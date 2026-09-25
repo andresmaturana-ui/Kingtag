@@ -5,9 +5,9 @@
         <p class="tagline">Los tags de la ciudad, en un mapa.</p>
 
         <nav class="home-buttons">
-            <a class="home-button" href="{{ route('my-tag.create') }}">Ingresa tu tag</a>
-            <a class="home-button accent" href="{{ route('sightings.create') }}">Registrar tag</a>
-            <a class="home-button" href="{{ route('search') }}">Buscar tag</a>
+            <a class="home-button" href="{{ route('my-tag.create') }}">Crear Tag</a>
+            <a class="home-button accent" href="{{ route('sightings.create') }}">Cazar Tag</a>
+            <a class="home-button" href="{{ route('search') }}">Buscar Tags</a>
         </nav>
     </section>
 

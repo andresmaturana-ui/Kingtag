@@ -90,9 +90,9 @@
             <h2><b>3</b> El inicio y el menú</h2>
             <p>Al abrir {{ $name }} ves tres botones:</p>
             <ul>
-                <li><span class="manual-key">Ingresa tu tag</span> para reclamar tu firma si eres artista.</li>
-                <li><span class="manual-key accent">Registrar tag</span> para subir un tag que viste en la calle.</li>
-                <li><span class="manual-key">Buscar tag</span> para buscar por nombre o en el mapa.</li>
+                <li><span class="manual-key">Crear Tag</span> para reclamar tu firma si eres artista.</li>
+                <li><span class="manual-key accent">Cazar Tag</span> para subir un tag que viste en la calle.</li>
+                <li><span class="manual-key">Buscar Tags</span> para buscar por nombre o en el mapa.</li>
             </ul>
             <p>Abajo, <strong>Lo último</strong> muestra las fotos más nuevas. Baja con el dedo y se siguen cargando.</p>
             <p>El menú <span class="manual-key">☰</span> tiene todo lo demás: Buscar, Ranking, esta Ayuda, Contacto, tu perfil y Salir.</p>
@@ -108,7 +108,7 @@
             <h2><b>4</b> Registra un tag</h2>
             <p>Viste un tag en una muralla. Párate frente a él y:</p>
             <ol>
-                <li>En el inicio toca el botón amarillo <span class="manual-key accent">Registrar tag</span>.</li>
+                <li>En el inicio toca el botón amarillo <span class="manual-key accent">Cazar Tag</span>.</li>
                 <li>Toca <strong>Sacar foto</strong>: se abre la cámara. Fotografía el tag completo.</li>
                 <li>Escribe <strong>qué dice el tag</strong>, tal como se lee.</li>
                 <li>Espera a que la app encuentre tu ubicación. Si te pregunta, dale permiso.</li>
@@ -129,7 +129,7 @@
             <h2><b>5</b> Ingresa tu tag</h2>
             <p>Si pintas, reclama tu firma para que todos sus grafitis queden a tu nombre.</p>
             <ol>
-                <li>En el inicio toca <span class="manual-key">Ingresa tu tag</span>.</li>
+                <li>En el inicio toca <span class="manual-key">Crear Tag</span>.</li>
                 <li>Escribe tu tag.</li>
                 <li>Agrega una foto para tu perfil: sácala en el momento o elígela de la galería.</li>
                 <li>Toca <strong>Reclamar mi tag</strong>.</li>
@@ -157,7 +157,7 @@
     <section class="manual-step has-shot two" id="buscar">
         <div class="manual-text">
             <h2><b>7</b> Busca tags</h2>
-            <p>Toca <span class="manual-key">Buscar tag</span> en el inicio o <strong>Buscar</strong> en el menú. Hay tres formas de buscar:</p>
+            <p>Toca <span class="manual-key">Buscar Tags</span> en el inicio o <strong>Buscar</strong> en el menú. Hay tres formas de buscar:</p>
             <ul>
                 <li><strong>Por nombre:</strong> escribe parte del tag y toca Buscar. Verás los tags que coinciden y cuántos grafitis tiene cada uno.</li>
                 <li><strong>En el mapa:</strong> cada círculo es un grafiti con su foto. Mueve el mapa, acerca con dos dedos y toca un círculo para ir a ese tag.</li>
