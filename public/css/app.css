@@ -173,6 +173,9 @@ textarea { resize: vertical; }
 .feed a { position: relative; color: var(--text); text-decoration: none; }
 .feed img { width: 100%; aspect-ratio: 1; object-fit: cover; }
 .feed span { position: absolute; left: 0; right: 0; bottom: 0; padding: 4px 6px; font-size: .75rem; background: rgba(0, 0, 0, .6); }
+.feed.carousel { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.feed.carousel::-webkit-scrollbar { display: none; }
+.feed.carousel a { flex: 0 0 calc((100% - 6px) / 3); scroll-snap-align: start; }
 
 /* Mapas */
 .map { height: 280px; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); }
