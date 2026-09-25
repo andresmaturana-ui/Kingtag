@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Tag;
 use App\Services\RegisterSighting;
+use App\Services\TagReader;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -14,9 +16,19 @@ use Illuminate\View\View;
  */
 class SightingController extends Controller
 {
-    public function create(): View
+    public function create(TagReader $reader): View
     {
-        return view('sightings.create');
+        return view('sightings.create', ['readerEnabled' => $reader->enabled()]);
+    }
+
+    /**
+     * La IA mira la foto y sugiere qué dice el tag. La persona lo revisa.
+     */
+    public function read(Request $request, TagReader $reader): JsonResponse
+    {
+        $request->validate(['photo' => ['required', 'image', 'max:4096']]);
+
+        return response()->json(['text' => $reader->read($request->file('photo'))]);
     }
 
     public function store(Request $request, RegisterSighting $register): RedirectResponse

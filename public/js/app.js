@@ -25,6 +25,7 @@ document.querySelectorAll('[data-photo-form]').forEach((form) => {
         if (!file) return;
         preview.src = URL.createObjectURL(file);
         preview.hidden = false;
+        form.dispatchEvent(new CustomEvent('kingtag:photo', { detail: file }));
     };
 
     input.addEventListener('change', show);
@@ -53,8 +54,13 @@ document.querySelectorAll('[data-geo-form]').forEach((form) => {
         return;
     }
 
+    let announced = false;
     navigator.geolocation.watchPosition(
         (pos) => {
+            if (!announced) {
+                announced = true;
+                form.dispatchEvent(new CustomEvent('kingtag:location', { detail: pos.coords }));
+            }
             lat.value = pos.coords.latitude.toFixed(7);
             lng.value = pos.coords.longitude.toFixed(7);
             status.textContent = `Ubicación lista (precisión de ${Math.round(pos.coords.accuracy)} m).`;
@@ -69,6 +75,99 @@ document.querySelectorAll('[data-geo-form]').forEach((form) => {
         if (!lat.value || !lng.value) {
             e.preventDefault();
             alert('Todavía no tenemos tu ubicación. Espera unos segundos.');
+        }
+    });
+});
+
+// Cazar tag: sugerir el texto del tag
+document.querySelectorAll('[data-geo-form]').forEach((form) => {
+    const text = form.querySelector('[data-tag-text]');
+    if (!text) return;
+
+    // Lo que puso la app (no la persona). Si la persona escribe, no se lo pisamos.
+    let autoValue = '';
+    const suggest = (value) => {
+        if (text.value.trim() === '' || text.value === autoValue) {
+            text.value = value;
+            autoValue = value;
+        }
+    };
+    text.addEventListener('input', () => { autoValue = ''; markChips(); });
+
+    // 1) Tags que ya están registrados a menos de 100 m
+    const box = form.querySelector('[data-tag-suggest]');
+    const chips = form.querySelector('[data-tag-chips]');
+    const markChips = () => chips?.querySelectorAll('.chip').forEach((c) => {
+        c.classList.toggle('selected', c.textContent === text.value);
+    });
+
+    form.addEventListener('kingtag:location', async (e) => {
+        if (!box) return;
+        try {
+            const url = `${box.dataset.url}?lat=${e.detail.latitude}&lng=${e.detail.longitude}`;
+            const res = await fetch(url, { headers: { Accept: 'application/json' } });
+            if (!res.ok) return;
+            const names = [...new Set((await res.json()).map((g) => g.tag))].slice(0, 12);
+            if (!names.length) return;
+            names.forEach((name) => {
+                const chip = document.createElement('button');
+                chip.type = 'button';
+                chip.className = 'chip';
+                chip.textContent = name;
+                chip.addEventListener('click', () => {
+                    text.value = name;
+                    autoValue = '';
+                    markChips();
+                });
+                chips.append(chip);
+            });
+            box.hidden = false;
+            markChips();
+        } catch {
+            // Sin señal: no mostramos sugerencias.
+        }
+    });
+
+    // 2) La IA lee el tag en la foto
+    const reader = form.querySelector('[data-tag-reader]');
+    if (!reader) return;
+    let current = 0;
+
+    // Achica la foto antes de mandarla: sube más rápido y la IA cobra menos.
+    const shrink = async (file) => {
+        const img = await createImageBitmap(file);
+        const scale = Math.min(1, 1024 / Math.max(img.width, img.height));
+        const canvas = document.createElement('canvas');
+        canvas.width = Math.round(img.width * scale);
+        canvas.height = Math.round(img.height * scale);
+        canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+        return new Promise((resolve) => canvas.toBlob(resolve, 'image/jpeg', 0.8));
+    };
+
+    form.addEventListener('kingtag:photo', async (e) => {
+        const attempt = ++current;
+        reader.hidden = false;
+        reader.textContent = 'Leyendo el tag de la foto…';
+        try {
+            const body = new FormData();
+            body.append('photo', await shrink(e.detail), 'tag.jpg');
+            body.append('_token', form.querySelector('[name=_token]').value);
+            const res = await fetch(reader.dataset.url, { method: 'POST', body, headers: { Accept: 'application/json' } });
+            if (attempt !== current) return;
+            const data = res.ok ? await res.json() : {};
+            if (data.text) {
+                suggest(data.text);
+                markChips();
+                reader.innerHTML = '';
+                reader.append('Parece que dice ');
+                const strong = document.createElement('strong');
+                strong.textContent = data.text;
+                reader.append(strong, '. Revisa que esté bien antes de registrar.');
+            } else {
+                reader.textContent = 'No pudimos leer el tag. Escríbelo tú.';
+            }
+        } catch {
+            if (attempt === current) reader.textContent = 'No pudimos leer el tag. Escríbelo tú.';
         }
     });
 });

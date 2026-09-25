@@ -12,9 +12,18 @@
         @csrf
         @include('partials.photo-input')
 
+        @if ($readerEnabled)
+            <p class="tag-reader muted small" hidden data-tag-reader data-url="{{ route('sightings.read') }}"></p>
+        @endif
+
         <label>¿Qué dice el tag?
-            <input name="text" value="{{ old('text') }}" required maxlength="60" autocapitalize="characters">
+            <input name="text" value="{{ old('text') }}" required maxlength="60" autocapitalize="characters" data-tag-text>
         </label>
+
+        <div class="tag-suggest" hidden data-tag-suggest data-url="{{ route('map.nearby') }}">
+            <p class="muted small">¿Es alguno de estos? Están a menos de 100 m:</p>
+            <div class="chips" data-tag-chips></div>
+        </div>
 
         <input type="hidden" name="lat" value="{{ old('lat') }}" data-lat>
         <input type="hidden" name="lng" value="{{ old('lng') }}" data-lng>

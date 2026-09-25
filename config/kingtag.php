@@ -20,4 +20,20 @@ return [
         'lng' => (float) env('KINGTAG_MAP_LNG', -70.6693),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Leer el tag de la foto con IA
+    |--------------------------------------------------------------------------
+    |
+    | Al cazar un tag, la IA de Claude (Anthropic) mira la foto y sugiere
+    | el texto. Se activa poniendo la clave en .env como ANTHROPIC_API_KEY.
+    | Sin clave la app funciona igual, solo que la persona escribe el tag.
+    |
+    */
+
+    'reader' => [
+        'api_key' => env('ANTHROPIC_API_KEY'),
+        'model' => env('KINGTAG_IA_MODELO', 'claude-haiku-4-5'),
+    ],
+
 ];
