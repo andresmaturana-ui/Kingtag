@@ -116,7 +116,7 @@
                         <li>Abajo aparecen los tags que ya están registrados <strong>a menos de 100 metros</strong>. Si es uno de esos, tócalo y queda escrito igual.</li>
                     </ul>
                 </li>
-                <li>Espera a que la app encuentre tu ubicación. Si te pregunta, dale permiso.</li>
+                <li>Espera a que la app encuentre tu ubicación. Si te pregunta, dale permiso. El botón <strong>Registrar</strong> se activa cuando la ubicación es precisa ("Ubicación lista ✓"); si en unos segundos no mejora, se activa igual.</li>
                 <li>Toca <strong>Registrar</strong>.</li>
             </ol>
             <p>La app te lleva a la página del tag y te dice qué pasó:</p>
@@ -214,7 +214,10 @@
         <h2><b>11</b> Preguntas frecuentes</h2>
         <dl class="manual-faq">
             <dt>La app no encuentra mi ubicación.</dt>
-            <dd>Activa el GPS del teléfono y dale permiso de ubicación al navegador. Si lo rechazaste antes, cámbialo en los ajustes del navegador para tagking.cl.</dd>
+            <dd>Activa el GPS del teléfono y dale permiso de ubicación. En iPhone: Ajustes › Privacidad › Localización, actívala y en Safari elige "Al usar la app". En Android: toca el candado junto a tagking.cl › Permisos › Ubicación › Permitir. Después toca <strong>Reintentar ubicación</strong>.</dd>
+
+            <dt>Dice "Afinando tu ubicación" y se demora.</dt>
+            <dd>El teléfono está buscando una ubicación precisa. Sal a un lugar más abierto o aléjate de los edificios altos y mejora en segundos.</dd>
 
             <dt>¿Por qué mi tag no sube en el ranking?</dt>
             <dd>El ranking cuenta murallas distintas. Otra foto del mismo grafiti no suma; el tag registrado en otro lugar sí.</dd>

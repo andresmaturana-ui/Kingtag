@@ -27,7 +27,9 @@
 
         <input type="hidden" name="lat" value="{{ old('lat') }}" data-lat>
         <input type="hidden" name="lng" value="{{ old('lng') }}" data-lng>
+        <input type="hidden" name="accuracy" value="{{ old('accuracy') }}" data-accuracy>
         <p class="geo-status muted small" data-geo-status>Buscando tu ubicación…</p>
+        <button type="button" class="button secondary" hidden data-geo-retry>Reintentar ubicación</button>
 
         <button type="submit" class="button" data-geo-submit>Registrar</button>
     </form>

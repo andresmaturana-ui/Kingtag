@@ -151,6 +151,7 @@ textarea { resize: vertical; }
 .button.danger { background: var(--danger); color: #fff; }
 .button.small-button { padding: 8px 12px; font-size: .8rem; }
 .button.secondary { background: var(--panel); color: var(--text); border: 1px solid var(--line); }
+.button:disabled { opacity: .4; cursor: not-allowed; }
 .photo-input { display: flex; flex-direction: column; gap: 10px; }
 .photo-preview { border-radius: var(--radius); max-height: 50vh; object-fit: contain; background: #000; }
 

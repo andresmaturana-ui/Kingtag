@@ -56,37 +56,55 @@
         map.on('moveend', load);
         load();
 
-        navigator.geolocation?.getCurrentPosition((pos) => {
-            map.setView([pos.coords.latitude, pos.coords.longitude], 16);
-        });
+        navigator.geolocation?.getCurrentPosition(
+            (pos) => map.setView([pos.coords.latitude, pos.coords.longitude], 16),
+            () => {},
+            { enableHighAccuracy: true, maximumAge: 30000, timeout: 20000 },
+        );
     });
 
     // Feed de grafitis a menos de 100 metros
     const feed = document.querySelector('[data-nearby]');
     const status = document.querySelector('[data-nearby-status]');
+    const retry = document.querySelector('[data-nearby-retry]');
     if (feed) {
         if (!navigator.geolocation) {
             status.textContent = 'Tu navegador no permite obtener la ubicación.';
             return;
         }
-        navigator.geolocation.getCurrentPosition(
-            (pos) => {
-                const params = new URLSearchParams({ lat: pos.coords.latitude, lng: pos.coords.longitude });
-                fetch(`${cfg.nearbyUrl}?${params}`, { headers: { Accept: 'application/json' } })
-                    .then((r) => r.json())
-                    .then((list) => {
-                        status.textContent = list.length
-                            ? `${list.length} grafiti${list.length === 1 ? '' : 's'} a menos de 100 m.`
-                            : 'No hay grafitis registrados a menos de 100 m.';
-                        feed.innerHTML = list.map((g) => `
-                            <a href="${escape(g.tag_url)}">
-                                <img src="${escape(g.thumb)}" alt="${escape(g.tag)}" loading="lazy">
-                                <span>${escape(g.tag)} · ${g.distance} m</span>
-                            </a>`).join('');
-                    });
-            },
-            () => { status.textContent = 'Activa tu ubicación para ver los grafitis cercanos.'; },
-            { enableHighAccuracy: true, timeout: 20000 },
-        );
+        const locate = () => {
+            retry.hidden = true;
+            status.textContent = 'Buscando tu ubicación…';
+            navigator.geolocation.getCurrentPosition(
+                (pos) => {
+                    const params = new URLSearchParams({ lat: pos.coords.latitude, lng: pos.coords.longitude });
+                    fetch(`${cfg.nearbyUrl}?${params}`, { headers: { Accept: 'application/json' } })
+                        .then((r) => r.json())
+                        .then((list) => {
+                            status.textContent = list.length
+                                ? `${list.length} grafiti${list.length === 1 ? '' : 's'} a menos de 100 m.`
+                                : 'No hay grafitis registrados a menos de 100 m.';
+                            feed.innerHTML = list.map((g) => `
+                                <a href="${escape(g.tag_url)}">
+                                    <img src="${escape(g.thumb)}" alt="${escape(g.tag)}" loading="lazy">
+                                    <span>${escape(g.tag)} · ${g.distance} m</span>
+                                </a>`).join('');
+                        })
+                        .catch(() => {
+                            status.textContent = 'No pudimos cargar los grafitis cercanos. Revisa tu conexión.';
+                            retry.hidden = false;
+                        });
+                },
+                (err) => {
+                    status.textContent = window.kingtagGeoError
+                        ? window.kingtagGeoError(err)
+                        : 'Activa tu ubicación para ver los grafitis cercanos.';
+                    retry.hidden = false;
+                },
+                { enableHighAccuracy: true, maximumAge: 30000, timeout: 20000 },
+            );
+        };
+        retry.addEventListener('click', locate);
+        locate();
     }
 })();
