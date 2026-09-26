@@ -26,6 +26,7 @@
         <a href="{{ route('home') }}" class="logo"><img src="/img/logo.svg?v={{ filemtime(public_path('img/logo.svg')) }}" alt="{{ config('kingtag.name') }}" width="202" height="71"></a>
         <button class="burger" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu" data-burger>
             <span></span><span></span><span></span>
+            @if (($inboxUnread ?? 0) + ($adminUnreadReplies ?? 0))<i class="burger-dot" aria-label="Tienes mensajes nuevos"></i>@endif
         </button>
     </header>
 
@@ -37,8 +38,9 @@
         <a href="{{ route('contact') }}">Contacto</a>
         @auth
             <a href="{{ route('profile') }}">Mi perfil</a>
+            <a href="{{ route('inbox') }}">Mis mensajes @if ($inboxUnread ?? 0)<span class="count-badge">{{ $inboxUnread }}</span>@endif</a>
             @if (auth()->user()->is_admin)
-                <a href="{{ route('admin.index') }}">Administrar</a>
+                <a href="{{ route('admin.index') }}">Administrar @if ($adminUnreadReplies ?? 0)<span class="count-badge">{{ $adminUnreadReplies }}</span>@endif</a>
             @endif
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
