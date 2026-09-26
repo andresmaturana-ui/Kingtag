@@ -1,6 +1,6 @@
 @font-face {
-    font-family: "Permanent Marker";
-    src: url("/fonts/permanent-marker.woff2") format("woff2");
+    font-family: "Rock Salt";
+    src: url("/fonts/rock-salt.woff2") format("woff2");
     font-display: swap;
 }
 
@@ -20,7 +20,7 @@
     --accent-ink: #111;
     --danger: #ff5a5a;
     --radius: 14px;
-    --display: "Permanent Marker", system-ui, sans-serif;
+    --display: "Rock Salt", system-ui, sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -52,7 +52,7 @@ img { max-width: 100%; display: block; }
 }
 .topbar { gap: 12px; }
 /* El logo ocupa todo el ancho libre junto al menú, con un tope para pantallas grandes */
-.logo { display: block; line-height: 0; flex: 1 1 auto; min-width: 0; max-width: 280px; }
+.logo { display: block; line-height: 0; flex: 1 1 auto; min-width: 0; max-width: 224px; }
 .logo img { display: block; width: 100%; height: auto; }
 .burger { width: 44px; height: 44px; display: grid; place-content: center; gap: 5px; background: none; border: 0; cursor: pointer; }
 .burger span { display: block; width: 26px; height: 3px; background: var(--text); border-radius: 2px; transition: transform .2s, opacity .2s; }
@@ -63,7 +63,7 @@ img { max-width: 100%; display: block; }
 .menu {
     position: fixed; z-index: 1050; top: 0; right: 0; bottom: 0;
     width: min(80vw, 320px);
-    padding: calc(env(safe-area-inset-top) + 80px) 24px 24px;
+    padding: calc(env(safe-area-inset-top) + 116px) 24px 24px;
     background: var(--panel); border-left: 1px solid var(--line);
     display: flex; flex-direction: column; gap: 4px;
 }
@@ -220,7 +220,7 @@ textarea { resize: vertical; }
 .manual-index { display: flex; flex-direction: column; margin: 8px 0 8px; border-top: 1px solid var(--line); }
 .manual-index a { padding: 10px 2px; border-bottom: 1px solid var(--line); color: var(--text); text-decoration: none; font-weight: 700; }
 .manual-index b, .manual-step h2 b { color: var(--accent); font-family: var(--display); font-weight: 400; margin-right: 8px; }
-.manual-step { padding: 8px 0 4px; scroll-margin-top: 90px; }
+.manual-step { padding: 8px 0 4px; scroll-margin-top: 116px; }
 .manual-step h2 { font-family: var(--display); font-weight: 400; font-size: 1.5rem; text-transform: none; letter-spacing: .02em; color: var(--text); margin: 1.6rem 0 .4rem; }
 .manual-step ol, .manual-step ul { padding-left: 1.3em; }
 .manual-step li { margin: 6px 0; }
