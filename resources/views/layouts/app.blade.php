@@ -11,7 +11,7 @@
     <meta property="og:title" content="@hasSection('title')@yield('title')@else{{ config('kingtag.name') }}@endif">
     <meta property="og:description" content="Los tags de la ciudad, en un mapa.">
     <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:image" content="{{ asset('img/og-image.jpg') }}">
+    <meta property="og:image" content="{{ asset('img/og-image.jpg') }}?v={{ filemtime(public_path('img/og-image.jpg')) }}">
     <meta name="twitter:card" content="summary_large_image">
     <link rel="manifest" href="/manifest.webmanifest">
     <link rel="icon" href="/icons/icon-192.png?v={{ filemtime(public_path('icons/icon-192.png')) }}">
