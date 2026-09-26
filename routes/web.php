@@ -49,7 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/mi-tag', [MyTagController::class, 'create'])->name('my-tag.create');
     Route::post('/mi-tag', [MyTagController::class, 'store'])->name('my-tag.store');
 
-    Route::post('/fotos/{photo}/{vote}', [PhotoController::class, 'vote'])->name('photos.vote')->whereIn('vote', ['king', 'toy'])->middleware('throttle:60,1');
+    Route::post('/fotos/{photo}/{vote}', [PhotoController::class, 'vote'])->name('photos.vote')->whereIn('vote', ['king'])->middleware('throttle:60,1');
     Route::post('/fotos/{photo}/comentarios', [PhotoController::class, 'comment'])->name('photos.comment')->middleware('throttle:20,60');
     Route::delete('/comentarios/{comment}', [PhotoController::class, 'deleteComment'])->name('comments.delete');
     Route::delete('/fotos/{photo}', [PhotoController::class, 'destroy'])->name('photos.delete');

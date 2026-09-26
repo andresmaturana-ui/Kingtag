@@ -1,7 +1,7 @@
-{{-- Botones King (corona) y Toy de una foto. Cada persona da uno de los dos; tocarlo de nuevo lo quita. --}}
+{{-- Botón King (corona) de una foto. Tocarlo de nuevo lo quita. --}}
 @php($compact = $compact ?? false)
 <div @class(['votes', 'compact' => $compact]) data-votes>
-    @foreach (['king' => ['King', $photo->likers_count, $photo->kinged ?? false], 'toy' => ['Toy', $photo->toyers_count, $photo->toyed ?? false]] as $vote => [$label, $count, $on])
+    @foreach (['king' => ['King', $photo->likers_count, $photo->kinged ?? false]] as $vote => [$label, $count, $on])
         @auth
             <form method="POST" action="{{ route('photos.vote', [$photo, $vote]) }}" data-vote>
                 @csrf

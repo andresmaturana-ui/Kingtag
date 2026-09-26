@@ -6,6 +6,7 @@ use App\Models\Comment;
 use App\Models\Photo;
 use App\Services\Inbox;
 use App\Services\Moderation;
+use App\Services\Ranking;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -14,9 +15,9 @@ use Illuminate\View\View;
 class PhotoController extends Controller
 {
     /**
-     * Una foto en grande, con su tag, sus King y Toy y sus comentarios.
+     * Una foto en grande, con su tag y su puesto en el ranking, sus King y sus comentarios.
      */
-    public function show(Request $request, Photo $photo): View
+    public function show(Request $request, Photo $photo, Ranking $ranking): View
     {
         $photo = Photo::withVotes($request->user())
             ->with(['graffiti.tag', 'comments' => fn ($q) => $q->with('user')->oldest('id')])
@@ -25,12 +26,13 @@ class PhotoController extends Controller
         return view('photos.show', [
             'photo' => $photo,
             'tag' => $photo->graffiti->tag,
+            'position' => $ranking->positions()[$photo->graffiti->tag_id] ?? null,
             'canModerate' => (bool) $request->user()?->canModerate(),
         ]);
     }
 
     /**
-     * Da o quita el King o el Toy. Desde el inicio llega por JavaScript y
+     * Da o quita el King. Desde el inicio llega por JavaScript y
      * responde los números nuevos; sin JavaScript vuelve a la página anterior.
      */
     public function vote(Request $request, Photo $photo, string $vote, Inbox $inbox): RedirectResponse|JsonResponse
@@ -43,9 +45,7 @@ class PhotoController extends Controller
 
             return response()->json([
                 'king' => $photo->likers_count,
-                'toy' => $photo->toyers_count,
                 'kinged' => (bool) $photo->kinged,
-                'toyed' => (bool) $photo->toyed,
             ]);
         }
 

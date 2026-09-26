@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * Aviso de que alguien le dio King o Toy a una foto tuya o de tu tag.
+ * Aviso de que alguien le dio King a una foto tuya o de tu tag.
  */
 #[Fillable(['user_id', 'actor_id', 'photo_id', 'kind', 'read_at'])]
 class VoteNotice extends Model

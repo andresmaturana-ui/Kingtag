@@ -72,7 +72,7 @@ class InboxTest extends TestCase
         $this->actingAs($this->admin)->get('/admin/bandeja')->assertSee('leído por 3 de 3');
     }
 
-    public function test_king_and_toy_reach_the_photographer_and_the_tag_owner(): void
+    public function test_king_reaches_the_photographer_and_the_tag_owner(): void
     {
         $artist = User::factory()->create(['username' => 'kaos']);
         $spotter = User::factory()->create(['username' => 'cazador']);
@@ -89,11 +89,16 @@ class InboxTest extends TestCase
         $this->actingAs($spotter)->get('/mensajes')->assertSee('fan')->assertSee('a tu foto de');
         $this->actingAs($artist)->get('/mensajes')->assertSee('a una foto de tu tag');
 
-        // Cambiar a Toy reemplaza el aviso; quitarlo lo borra.
-        $this->actingAs($voter)->post("/fotos/{$photo->id}/toy");
-        $this->assertSame(['toy', 'toy'], VoteNotice::pluck('kind')->all());
-        $this->actingAs($voter)->post("/fotos/{$photo->id}/toy");
+        // Quitar el King borra el aviso.
+        $this->assertSame(['king', 'king'], VoteNotice::pluck('kind')->all());
+        $this->actingAs($voter)->post("/fotos/{$photo->id}/king");
         $this->assertSame(0, VoteNotice::count());
+
+        // Los avisos de Toy de antes no se muestran ni se cuentan.
+        VoteNotice::create(['user_id' => $spotter->id, 'actor_id' => $voter->id, 'photo_id' => $photo->id, 'kind' => 'toy']);
+        $this->actingAs($spotter)->get('/')->assertDontSee('burger-dot', false);
+        $this->actingAs($spotter)->get('/mensajes')->assertDontSee('Toy');
+        VoteNotice::query()->delete();
 
         // El voto propio no genera aviso.
         $this->actingAs($spotter)->post("/fotos/{$photo->id}/king");

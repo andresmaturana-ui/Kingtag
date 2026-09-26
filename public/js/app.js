@@ -300,7 +300,7 @@ if ('serviceWorker' in navigator) {
     observer.observe(more);
 })();
 
-// King y Toy: se marcan sin recargar la página (así el feed no pierde el lugar)
+// King: se marca sin recargar la página (así el feed no pierde el lugar)
 document.addEventListener('submit', async (e) => {
     const form = e.target.closest('[data-vote]');
     if (!form) return;
@@ -314,7 +314,7 @@ document.addEventListener('submit', async (e) => {
         });
         if (!res.ok) throw new Error(res.status);
         const data = await res.json();
-        [['king', data.king, data.kinged], ['toy', data.toy, data.toyed]].forEach(([vote, count, on]) => {
+        [['king', data.king, data.kinged]].forEach(([vote, count, on]) => {
             const button = box.querySelector(`.vote.${vote}`);
             button.classList.toggle('on', on);
             button.setAttribute('aria-pressed', String(on));

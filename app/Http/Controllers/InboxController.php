@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 /**
- * "Mis mensajes": lo que escribe TAGKING, las respuestas del usuario y los avisos de King y Toy.
+ * "Mis mensajes": lo que escribe TAGKING, las respuestas del usuario y los avisos de King.
  */
 class InboxController extends Controller
 {
