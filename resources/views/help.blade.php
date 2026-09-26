@@ -37,8 +37,9 @@
         <a href="#buscar"><b>7</b> Buscar Tags</a>
         <a href="#ranking"><b>8</b> El ranking</a>
         <a href="#fotos"><b>9</b> King, Toy y comentarios</a>
-        <a href="#instalar"><b>10</b> Instala la app</a>
-        <a href="#preguntas"><b>11</b> Preguntas frecuentes</a>
+        <a href="#mensajes"><b>10</b> Mis mensajes</a>
+        <a href="#instalar"><b>11</b> Instala la app</a>
+        <a href="#preguntas"><b>12</b> Preguntas frecuentes</a>
     </nav>
 
     <section class="manual-step manual-intro" id="dinamica">
@@ -95,7 +96,7 @@
                 <li><span class="manual-key">Buscar Tags</span> para buscar por nombre o en el mapa.</li>
             </ul>
             <p>Abajo, <strong>Lo último</strong> muestra las fotos más nuevas, cada una con sus botones <strong>👑 King</strong> y <strong>Toy</strong>. Baja con el dedo y se siguen cargando.</p>
-            <p>El menú <span class="manual-key">☰</span> tiene todo lo demás: Buscar, Ranking, esta Ayuda, Contacto, tu perfil y Salir.</p>
+            <p>El menú <span class="manual-key">☰</span> tiene todo lo demás: Buscar, Ranking, esta Ayuda, Contacto, tu perfil, Mis mensajes y Salir. Un puntito amarillo en el menú avisa que tienes mensajes nuevos.</p>
         </div>
         <figure class="manual-shots">
             <img src="/img/manual/02-inicio.jpg" alt="Pantalla de inicio" loading="lazy" width="390" height="780">
@@ -201,8 +202,23 @@
         <figure class="manual-shots"><img src="/img/manual/11-foto.jpg" alt="Foto con los botones King y Toy y comentarios" loading="lazy" width="390" height="780"></figure>
     </section>
 
+    <section class="manual-step has-shot" id="mensajes">
+        <div class="manual-text">
+            <h2><b>10</b> Mis mensajes</h2>
+            <p>En el menú, <strong>Mis mensajes</strong> muestra con un número amarillo cuántas cosas nuevas tienes. Ahí llegan:</p>
+            <ul>
+                <li><strong>Mensajes de {{ $name }}:</strong> avisos para todos o mensajes solo para ti.</li>
+                <li><strong>👑 King</strong> cuando alguien le da King a una foto que subiste o a una foto de tu tag.</li>
+                <li><strong>Toy</strong> cuando alguien le da Toy. Si esa persona quita su voto, el aviso desaparece.</li>
+                <li>Toca un aviso para ver la foto.</li>
+                <li>Para responder, toca <strong>Escribirle a {{ $name }}</strong>, escribe y toca <strong>Enviar</strong>.</li>
+            </ul>
+        </div>
+        <figure class="manual-shots"><img src="/img/manual/12-mensajes.jpg" alt="Mis mensajes con un mensaje de TAGKING y avisos de King y Toy" loading="lazy" width="390" height="780"></figure>
+    </section>
+
     <section class="manual-step" id="instalar">
-        <h2><b>10</b> Instala la app en tu teléfono</h2>
+        <h2><b>11</b> Instala la app en tu teléfono</h2>
         <p>{{ $name }} funciona desde el navegador, sin bajar nada de una tienda. Para tenerla como una app más, con su ícono en la pantalla:</p>
         <ul>
             <li><strong>Android (Chrome):</strong> abre tagking.cl, toca los tres puntos <span class="manual-key">⋮</span> arriba a la derecha y elige <strong>Agregar a la pantalla principal</strong> o <strong>Instalar app</strong>.</li>
@@ -211,7 +227,7 @@
     </section>
 
     <section class="manual-step" id="preguntas">
-        <h2><b>11</b> Preguntas frecuentes</h2>
+        <h2><b>12</b> Preguntas frecuentes</h2>
         <dl class="manual-faq">
             <dt>La app no encuentra mi ubicación.</dt>
             <dd>Activa el GPS del teléfono y dale permiso de ubicación. En iPhone: Ajustes › Privacidad › Localización, actívala y en Safari elige "Al usar la app". En Android: toca el candado junto a tagking.cl › Permisos › Ubicación › Permitir. Después toca <strong>Reintentar ubicación</strong>.</dd>

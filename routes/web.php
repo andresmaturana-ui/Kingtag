@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\InboxController as AdminInboxController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InboxController;
 use App\Http\Controllers\ManifestController;
 use App\Http\Controllers\MapController;
 use App\Http\Controllers\MyTagController;
@@ -41,6 +43,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/salir', [AuthController::class, 'logout'])->name('logout');
 
     Route::get('/mi-perfil', [TagController::class, 'mine'])->name('profile');
+
+    Route::get('/mensajes', [InboxController::class, 'index'])->name('inbox');
+    Route::post('/mensajes', [InboxController::class, 'reply'])->name('inbox.reply')->middleware('throttle:20,60');
     Route::get('/mi-tag', [MyTagController::class, 'create'])->name('my-tag.create');
     Route::post('/mi-tag', [MyTagController::class, 'store'])->name('my-tag.store');
 
@@ -64,6 +69,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/mensajes', [AdminController::class, 'messages'])->name('messages');
     Route::post('/mensajes/{message}/leido', [AdminController::class, 'markRead'])->name('messages.read');
     Route::delete('/mensajes/{message}', [AdminController::class, 'deleteMessage'])->name('messages.delete');
+
+    Route::get('/bandeja', [AdminInboxController::class, 'index'])->name('inbox');
+    Route::post('/bandeja/todos', [AdminInboxController::class, 'sendToAll'])->name('inbox.all');
+    Route::get('/usuarios/{user}/mensajes', [AdminInboxController::class, 'show'])->name('inbox.show');
+    Route::post('/usuarios/{user}/mensajes', [AdminInboxController::class, 'send'])->name('inbox.send');
 
     Route::get('/tags', [AdminController::class, 'tags'])->name('tags');
     Route::delete('/tags/{tag}', [AdminController::class, 'deleteTag'])->name('tags.delete');

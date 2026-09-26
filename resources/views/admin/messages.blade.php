@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title', 'Mensajes')
+@section('title', 'Contacto')
 
 @section('content')
-    <h1>Mensajes</h1>
+    <h1>Contacto</h1>
     @include('admin.nav')
 
     @forelse ($messages as $m)

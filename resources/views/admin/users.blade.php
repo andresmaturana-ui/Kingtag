@@ -20,6 +20,7 @@
                 {{ $u->photos_count }} {{ $u->photos_count === 1 ? 'foto subida' : 'fotos subidas' }}
             </p>
             <div class="admin-actions">
+                <a class="button small-button" href="{{ route('admin.inbox.show', $u) }}">Mensaje</a>
                 <form method="POST" action="{{ route('admin.users.password', $u) }}" data-confirm="¿Crear una clave nueva para {{ $u->username }}? La actual dejará de funcionar.">
                     @csrf
                     <button class="button secondary small-button">Nueva clave</button>

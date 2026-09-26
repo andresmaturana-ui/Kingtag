@@ -13,8 +13,13 @@
         <div><strong>{{ $counts['photos'] }}</strong><span>fotos</span></div>
     </div>
 
-    <a class="big-button {{ $unread ? 'accent' : '' }}" href="{{ route('admin.messages') }}">
+    <a class="big-button {{ $adminUnreadReplies ? 'accent' : '' }}" href="{{ route('admin.inbox') }}">
         <strong>Mensajes</strong>
+        <span>Escríbele a un usuario o a todos · {{ $adminUnreadReplies === 1 ? '1 respuesta sin leer' : "{$adminUnreadReplies} respuestas sin leer" }}</span>
+    </a>
+
+    <a class="big-button {{ $unread ? 'accent' : '' }}" href="{{ route('admin.messages') }}">
+        <strong>Contacto</strong>
         <span>{{ $unread === 1 ? '1 sin leer' : "{$unread} sin leer" }}</span>
     </a>
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use App\Models\Photo;
+use App\Services\Inbox;
 use App\Services\Moderation;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -32,9 +33,10 @@ class PhotoController extends Controller
      * Da o quita el King o el Toy. Desde el inicio llega por JavaScript y
      * responde los números nuevos; sin JavaScript vuelve a la página anterior.
      */
-    public function vote(Request $request, Photo $photo, string $vote): RedirectResponse|JsonResponse
+    public function vote(Request $request, Photo $photo, string $vote, Inbox $inbox): RedirectResponse|JsonResponse
     {
         $photo->vote($request->user(), $vote);
+        $inbox->syncVoteNotices($photo, $request->user());
 
         if ($request->wantsJson()) {
             $photo = Photo::withVotes($request->user())->findOrFail($photo->id);
