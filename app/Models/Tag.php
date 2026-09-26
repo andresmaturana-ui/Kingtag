@@ -76,8 +76,8 @@ class Tag extends Model
     }
 
     /**
-     * Suma kings_count y toys_count: los King y Toy que recibieron todas las
-     * fotos de los grafitis del tag.
+     * Suma kings_count: los King que recibieron todas las fotos de los
+     * grafitis del tag.
      */
     public function scopeWithVoteCounts(Builder $query): void
     {
@@ -85,7 +85,7 @@ class Tag extends Model
             $query->select('tags.*');
         }
 
-        foreach (['kings_count' => 'photo_likes', 'toys_count' => 'photo_toys'] as $alias => $table) {
+        foreach (['kings_count' => 'photo_likes'] as $alias => $table) {
             $query->selectSub(
                 DB::table($table)
                     ->join('photos', 'photos.id', '=', "$table.photo_id")

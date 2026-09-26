@@ -33,10 +33,9 @@ class PhotoTest extends TestCase
 
     public function test_guests_see_the_photo_but_must_log_in_to_like_or_comment(): void
     {
-        $this->get("/fotos/{$this->photo->id}")->assertOk()->assertSee('King')->assertSee('Toy')->assertSee('para comentar');
+        $this->get("/fotos/{$this->photo->id}")->assertOk()->assertSee('King')->assertDontSee('Toy')->assertSee('para comentar');
 
         $this->post("/fotos/{$this->photo->id}/king")->assertRedirect('/entrar');
-        $this->post("/fotos/{$this->photo->id}/toy")->assertRedirect('/entrar');
         $this->post("/fotos/{$this->photo->id}/comentarios", ['body' => 'hola'])->assertRedirect('/entrar');
     }
 
@@ -53,27 +52,34 @@ class PhotoTest extends TestCase
         $this->assertSame(1, $this->photo->likers()->count());
     }
 
-    public function test_king_and_toy_exclude_each_other(): void
+    public function test_toy_is_gone_and_old_toys_are_not_shown(): void
     {
         $user = User::factory()->create();
+        $this->photo->toyers()->attach(User::factory()->create());
 
-        $this->actingAs($user)->post("/fotos/{$this->photo->id}/king");
-        $this->actingAs($user)->postJson("/fotos/{$this->photo->id}/toy")
-            ->assertOk()->assertExactJson(['king' => 0, 'toy' => 1, 'kinged' => false, 'toyed' => true]);
-        $this->assertSame(0, $this->photo->likers()->count());
-
-        $this->actingAs($user)->postJson("/fotos/{$this->photo->id}/toy")
-            ->assertExactJson(['king' => 0, 'toy' => 0, 'kinged' => false, 'toyed' => false]);
+        $this->actingAs($user)->postJson("/fotos/{$this->photo->id}/king")
+            ->assertOk()->assertExactJson(['king' => 1, 'kinged' => true]);
+        $this->actingAs($user)->post("/fotos/{$this->photo->id}/toy")->assertNotFound();
         $this->post("/fotos/{$this->photo->id}/nada")->assertNotFound();
+
+        foreach (['/', "/fotos/{$this->photo->id}", '/ranking'] as $url) {
+            $this->get($url)->assertOk()->assertDontSee('Toy');
+        }
     }
 
-    public function test_the_home_feed_shows_king_and_toy_on_each_photo(): void
+    public function test_the_home_feed_shows_king_on_each_photo(): void
     {
         $user = User::factory()->create();
-        $this->photo->toyers()->attach($user);
+        $this->photo->likers()->attach($user);
 
-        $this->get('/')->assertSee('class="vote toy" href="'.url('/entrar').'"', false)->assertSee('class="vote-count">1<', false);
-        $this->actingAs($user)->get('/')->assertSee('action="'.url("/fotos/{$this->photo->id}/toy").'"', false)->assertSee('aria-pressed="true"', false);
+        $this->get('/')->assertSee('class="vote king" href="'.url('/entrar').'"', false)->assertSee('class="vote-count">1<', false);
+        $this->actingAs($user)->get('/')->assertSee('action="'.url("/fotos/{$this->photo->id}/king").'"', false)->assertSee('aria-pressed="true"', false);
+    }
+
+    public function test_photos_show_the_ranking_position_of_their_tag(): void
+    {
+        $this->get('/')->assertSee('<b class="rank-badge">#1</b>', false);
+        $this->get("/fotos/{$this->photo->id}")->assertSee('#1 en el ranking');
     }
 
     public function test_comments_can_be_written_and_deleted_by_their_author_or_an_admin(): void

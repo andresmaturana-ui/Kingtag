@@ -6,7 +6,12 @@
     <figure class="photo-full">
         <img src="{{ $photo->url() }}" alt="Grafiti de {{ $tag->text }}">
         <figcaption>
-            <a href="{{ route('tags.show', $tag) }}" class="photo-tag">{{ $tag->text }}</a>
+            <span>
+                <a href="{{ route('tags.show', $tag) }}" class="photo-tag">{{ $tag->text }}</a>
+                @if ($position)
+                    <a href="{{ route('ranking') }}" class="photo-rank">#{{ $position }} en el ranking</a>
+                @endif
+            </span>
             <span class="muted small">{{ $photo->created_at->format('d-m-Y') }}</span>
         </figcaption>
     </figure>

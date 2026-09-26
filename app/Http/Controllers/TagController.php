@@ -33,7 +33,6 @@ class TagController extends Controller
             'photos' => $tag->photos()->latest('photos.id')->limit(60)->get(),
             'rank' => $ranking->around($tag),
             'kings' => (int) $votes->kings_count,
-            'toys' => (int) $votes->toys_count,
             'isAdmin' => (bool) $request->user()?->is_admin,
             'canModerate' => (bool) $request->user()?->canModerate(),
         ]);

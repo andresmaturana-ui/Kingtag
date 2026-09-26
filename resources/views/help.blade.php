@@ -36,7 +36,7 @@
         <a href="#pagina-tag"><b>6</b> La página de cada tag</a>
         <a href="#buscar"><b>7</b> Buscar Tags</a>
         <a href="#ranking"><b>8</b> El ranking</a>
-        <a href="#fotos"><b>9</b> King, Toy y comentarios</a>
+        <a href="#fotos"><b>9</b> King y comentarios</a>
         <a href="#mensajes"><b>10</b> Mis mensajes</a>
         <a href="#instalar"><b>11</b> Instala la app</a>
         <a href="#preguntas"><b>12</b> Preguntas frecuentes</a>
@@ -74,7 +74,7 @@
     <section class="manual-step has-shot" id="cuenta">
         <div class="manual-text">
             <h2><b>2</b> Crea tu cuenta</h2>
-            <p>Mirar el mapa, el ranking y las fotos es libre. Para registrar tags, reclamar el tuyo, dar King o Toy, o comentar necesitas una cuenta.</p>
+            <p>Mirar el mapa, el ranking y las fotos es libre. Para registrar tags, reclamar el tuyo, dar King o comentar necesitas una cuenta.</p>
             <ol>
                 <li>Abre el menú <span class="manual-key">☰</span> arriba a la derecha y toca <strong>Crear cuenta</strong>.</li>
                 <li>Elige un <strong>usuario</strong> de 3 a 30 letras.</li>
@@ -95,7 +95,7 @@
                 <li><span class="manual-key accent">Spotting</span> para subir un tag que viste en la calle.</li>
                 <li><span class="manual-key">Buscar Tags</span> para buscar por nombre o en el mapa.</li>
             </ul>
-            <p>Abajo, <strong>Lo último</strong> muestra las fotos más nuevas, cada una con sus botones <strong>👑 King</strong> y <strong>Toy</strong>. Baja con el dedo y se siguen cargando.</p>
+            <p>Abajo, <strong>Lo último</strong> muestra las fotos más nuevas, cada una con su botón <strong>👑 King</strong> y, en amarillo, el puesto de su tag en el ranking (por ejemplo <strong>#2</strong>). Baja con el dedo y se siguen cargando.</p>
             <p>El menú <span class="manual-key">☰</span> tiene todo lo demás: Buscar, Ranking, esta Ayuda, Contacto, tu perfil, Mis mensajes y Salir. Un puntito amarillo en el menú avisa que tienes mensajes nuevos.</p>
         </div>
         <figure class="manual-shots">
@@ -151,7 +151,7 @@
             <h2><b>6</b> La página de cada tag</h2>
             <p>Cada tag tiene su propia página. Llegas a ella tocando su nombre en cualquier parte de la app.</p>
             <ul>
-                <li><strong>Arriba:</strong> la foto del tag, el artista que lo reclamó (o "Tag sin reclamar") y cuántos grafitis tiene. Debajo, cuántos King y Toy han recibido sus fotos: cuando tiene al menos un King, la corona se pinta amarilla.</li>
+                <li><strong>Arriba:</strong> la foto del tag, el artista que lo reclamó (o "Tag sin reclamar") y cuántos grafitis tiene. Debajo, cuántos King han recibido sus fotos: cuando tiene al menos un King, la corona se pinta amarilla.</li>
                 <li><strong>Su lugar en el ranking:</strong> al centro, en amarillo, su posición. A los lados, el tag que va justo arriba y el que va justo abajo. Así sabes a quién tienes que pasar.</li>
                 <li><strong>Dónde está:</strong> un mapa con un círculo por cada grafiti.</li>
                 <li><strong>Fotos:</strong> todas las fotos que la gente ha registrado de ese tag.</li>
@@ -179,7 +179,7 @@
     <section class="manual-step has-shot" id="ranking">
         <div class="manual-text">
             <h2><b>8</b> El ranking</h2>
-            <p>En el menú, <strong>Ranking</strong> muestra los 20 tags con más grafitis de la ciudad. El número de la derecha es cuántas murallas distintas tiene cada uno. Bajo cada nombre ves cuántos 👑 King y Toy han recibido sus fotos.</p>
+            <p>En el menú, <strong>Ranking</strong> muestra los 20 tags con más grafitis de la ciudad. El número de la derecha es cuántas murallas distintas tiene cada uno. Bajo cada nombre ves cuántos 👑 King han recibido sus fotos.</p>
             <p>Para subir, el tag tiene que aparecer en más lugares. Varias fotos del mismo grafiti no suman.</p>
             <p>Toca cualquier tag para ver su página, su mapa y sus fotos.</p>
         </div>
@@ -188,18 +188,16 @@
 
     <section class="manual-step has-shot" id="fotos">
         <div class="manual-text">
-            <h2><b>9</b> King, Toy y comentarios</h2>
-            <p>Cada foto tiene dos botones, en el inicio y al verla en grande:</p>
+            <h2><b>9</b> King y comentarios</h2>
+            <p>Cada foto tiene el botón <strong>👑 King</strong>, en el inicio y al verla en grande:</p>
             <ul>
-                <li><strong>👑 King</strong> si el tag te parece bueno.</li>
-                <li><strong>Toy</strong> si te parece malo.</li>
-                <li>Puedes dar uno de los dos, no ambos. Tócalo de nuevo para quitarlo. Al lado de cada botón ves cuántos King y Toy tiene la foto.</li>
-                <li>Toca cualquier foto para verla en grande.</li>
+                <li>Tócalo si el tag te parece bueno. Tócalo de nuevo para quitarlo. Al lado ves cuántos King tiene la foto.</li>
+                <li>Toca cualquier foto para verla en grande. Bajo el nombre del tag ves su puesto en el ranking; tócalo para ir al ranking.</li>
                 <li>Escribe abajo y toca <strong>Comentar</strong>. Puedes borrar tus propios comentarios.</li>
                 <li>Toca el nombre del tag para ir a su página.</li>
             </ul>
         </div>
-        <figure class="manual-shots"><img src="/img/manual/11-foto.jpg" alt="Foto con los botones King y Toy y comentarios" loading="lazy" width="390" height="780"></figure>
+        <figure class="manual-shots"><img src="/img/manual/11-foto.jpg" alt="Foto con el botón King, el puesto en el ranking y comentarios" loading="lazy" width="390" height="780"></figure>
     </section>
 
     <section class="manual-step has-shot" id="mensajes">
@@ -209,12 +207,12 @@
             <ul>
                 <li><strong>Mensajes de {{ $name }}:</strong> avisos para todos o mensajes solo para ti.</li>
                 <li><strong>👑 King</strong> cuando alguien le da King a una foto que subiste o a una foto de tu tag.</li>
-                <li><strong>Toy</strong> cuando alguien le da Toy. Si esa persona quita su voto, el aviso desaparece.</li>
+                <li>Si esa persona quita su King, el aviso desaparece.</li>
                 <li>Toca un aviso para ver la foto.</li>
                 <li>Para responder, toca <strong>Escribirle a {{ $name }}</strong>, escribe y toca <strong>Enviar</strong>.</li>
             </ul>
         </div>
-        <figure class="manual-shots"><img src="/img/manual/12-mensajes.jpg" alt="Mis mensajes con un mensaje de TAGKING y avisos de King y Toy" loading="lazy" width="390" height="780"></figure>
+        <figure class="manual-shots"><img src="/img/manual/12-mensajes.jpg" alt="Mis mensajes con un mensaje de TAGKING y avisos de King" loading="lazy" width="390" height="780"></figure>
     </section>
 
     <section class="manual-step" id="instalar">

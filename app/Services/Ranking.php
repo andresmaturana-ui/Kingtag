@@ -34,6 +34,24 @@ class Ranking
     }
 
     /**
+     * El puesto de cada tag que tiene grafitis, para mostrarlo junto a sus fotos.
+     *
+     * @return array<int, int> id del tag => puesto (1 es el primero)
+     */
+    public function positions(): array
+    {
+        return Tag::query()
+            ->whereHas('graffitis')
+            ->withCount('graffitis')
+            ->orderByDesc('graffitis_count')
+            ->orderBy('id')
+            ->pluck('id')
+            ->flip()
+            ->map(fn (int $i) => $i + 1)
+            ->all();
+    }
+
+    /**
      * La posición de un tag y los tags que tiene justo arriba y justo abajo.
      *
      * @return array{position: int|null, above: Tag|null, below: Tag|null}

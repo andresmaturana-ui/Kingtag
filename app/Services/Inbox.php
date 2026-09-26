@@ -11,7 +11,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 /**
- * La bandeja "Mis mensajes": conversación con TAGKING más los avisos de King y Toy.
+ * La bandeja "Mis mensajes": conversación con TAGKING más los avisos de King.
  */
 class Inbox
 {
@@ -21,7 +21,7 @@ class Inbox
     public function unreadFor(User $user): int
     {
         return InboxMessage::where('user_id', $user->id)->where('from_admin', true)->whereNull('read_at')->count()
-            + VoteNotice::where('user_id', $user->id)->whereNull('read_at')->count();
+            + VoteNotice::where('user_id', $user->id)->where('kind', 'king')->whereNull('read_at')->count();
     }
 
     /**
@@ -38,7 +38,8 @@ class Inbox
     public function feed(User $user, int $limit = 100): Collection
     {
         $messages = InboxMessage::where('user_id', $user->id)->latest('id')->limit($limit)->get();
-        $notices = VoteNotice::where('user_id', $user->id)
+        // Los avisos de Toy que quedaron de antes de quitar el botón no se muestran.
+        $notices = VoteNotice::where('user_id', $user->id)->where('kind', 'king')
             ->with(['actor', 'photo.graffiti.tag'])
             ->latest('id')->limit($limit)->get();
 
@@ -100,19 +101,14 @@ class Inbox
     }
 
     /**
-     * Después de un voto: avisa a quien subió la foto y al dueño del tag.
-     * Si el voto se quitó o cambió, el aviso anterior desaparece.
+     * Después de un King: avisa a quien subió la foto y al dueño del tag.
+     * Si el King se quitó, el aviso desaparece.
      */
     public function syncVoteNotices(Photo $photo, User $actor): void
     {
         VoteNotice::where('photo_id', $photo->id)->where('actor_id', $actor->id)->delete();
 
-        $kind = match (true) {
-            $photo->likers()->whereKey($actor->id)->exists() => 'king',
-            $photo->toyers()->whereKey($actor->id)->exists() => 'toy',
-            default => null,
-        };
-        if (! $kind) {
+        if (! $photo->likers()->whereKey($actor->id)->exists()) {
             return;
         }
 
@@ -125,7 +121,7 @@ class Inbox
                 'user_id' => $id,
                 'actor_id' => $actor->id,
                 'photo_id' => $photo->id,
-                'kind' => $kind,
+                'kind' => 'king',
             ]));
     }
 }

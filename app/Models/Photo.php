@@ -33,7 +33,8 @@ class Photo extends Model
     }
 
     /**
-     * Los usuarios que le dieron "Toy". Cada usuario da King o Toy, no los dos.
+     * Los usuarios que le dieron "Toy". El botón Toy se quitó de la app el
+     * 2026-09-26; los votos que ya había se guardan pero no se muestran.
      */
     public function toyers(): BelongsToMany
     {
@@ -41,16 +42,15 @@ class Photo extends Model
     }
 
     /**
-     * Cuenta los King y Toy y, si hay alguien conectado, marca cuál dio él.
+     * Cuenta los King y, si hay alguien conectado, marca si él dio uno.
      */
     public function scopeWithVotes(Builder $query, ?User $user): void
     {
-        $query->withCount(['likers', 'toyers']);
+        $query->withCount('likers');
 
         if ($user) {
             $query->withExists([
                 'likers as kinged' => fn ($q) => $q->whereKey($user->id),
-                'toyers as toyed' => fn ($q) => $q->whereKey($user->id),
             ]);
         }
     }

@@ -21,16 +21,10 @@
             @if ($item instanceof \App\Models\VoteNotice)
                 @php($tag = $item->photo->graffiti->tag)
                 <a href="{{ route('photos.show', $item->photo) }}" @class(['inbox-item', 'notice', $item->kind, 'new' => ! $item->read_at])>
-                    <span class="notice-icon">
-                        @if ($item->kind === 'king')
-                            @include('partials.vote-icon', ['vote' => 'king'])
-                        @else
-                            Toy
-                        @endif
-                    </span>
+                    <span class="notice-icon">@include('partials.vote-icon', ['vote' => 'king'])</span>
                     <span class="notice-text">
                         <strong>{{ $item->actor->username }}</strong>
-                        le dio <b>{{ $item->kind === 'king' ? 'King' : 'Toy' }}</b>
+                        le dio <b>King</b>
                         {{ $item->photo->user_id === auth()->id() ? 'a tu foto de' : 'a una foto de tu tag' }}
                         <span class="tag-name">{{ $tag->text }}</span>
                         <span class="muted small">{{ $item->created_at->format('d-m-Y H:i') }}</span>
@@ -48,7 +42,7 @@
                 </article>
             @endif
         @empty
-            <p class="muted">Aún no tienes mensajes. Aquí verás lo que te escriba {{ config('kingtag.name') }} y cuando alguien le dé King o Toy a tus fotos o a tu tag.</p>
+            <p class="muted">Aún no tienes mensajes. Aquí verás lo que te escriba {{ config('kingtag.name') }} y cuando alguien le dé King a tus fotos o a tu tag.</p>
         @endforelse
     </div>
 @endsection

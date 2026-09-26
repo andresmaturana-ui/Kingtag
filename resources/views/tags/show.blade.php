@@ -19,7 +19,7 @@
                 @endif
                 · {{ $graffitis->count() }} {{ $graffitis->count() === 1 ? 'grafiti' : 'grafitis' }}
             </p>
-            @include('partials.tag-votes', ['kings' => $kings, 'toys' => $toys])
+            @include('partials.tag-votes', ['kings' => $kings])
         </div>
     </section>
 
