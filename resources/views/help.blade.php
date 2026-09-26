@@ -95,7 +95,7 @@
                 <li><span class="manual-key accent">Spotting</span> para subir un tag que viste en la calle.</li>
                 <li><span class="manual-key">Buscar Tags</span> para buscar por nombre o en el mapa.</li>
             </ul>
-            <p>Abajo, <strong>Lo último</strong> muestra las fotos más nuevas, cada una con su botón <strong>👑 King</strong> y, en amarillo, el puesto de su tag en el ranking (por ejemplo <strong>#2</strong>). Baja con el dedo y se siguen cargando.</p>
+            <p>Abajo, <strong>Lo último</strong> muestra las fotos más nuevas, cada una con su botón <strong>👑 King</strong> y, al lado, en amarillo, el puesto de su tag en el ranking (por ejemplo <strong>#2</strong>). Toca el puesto para ir al ranking. Baja con el dedo y se siguen cargando.</p>
             <p>El menú <span class="manual-key">☰</span> tiene todo lo demás: Buscar, Ranking, esta Ayuda, Contacto, tu perfil, Mis mensajes y Salir. Un puntito amarillo en el menú avisa que tienes mensajes nuevos.</p>
         </div>
         <figure class="manual-shots">

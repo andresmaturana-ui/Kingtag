@@ -1,4 +1,4 @@
-{{-- Botón King (corona) de una foto. Tocarlo de nuevo lo quita. --}}
+{{-- Botón King (corona) de una foto. Tocarlo de nuevo lo quita. En el inicio, al lado va el puesto del tag en el ranking. --}}
 @php($compact = $compact ?? false)
 <div @class(['votes', 'compact' => $compact]) data-votes>
     @foreach (['king' => ['King', $photo->likers_count, $photo->kinged ?? false]] as $vote => [$label, $count, $on])
@@ -15,4 +15,7 @@
             </a>
         @endauth
     @endforeach
+    @if ($rank ?? null)
+        <a class="rank-chip" href="{{ route('ranking') }}" aria-label="Puesto {{ $rank }} en el ranking">#{{ $rank }}</a>
+    @endif
 </div>

@@ -78,7 +78,7 @@ class PhotoTest extends TestCase
 
     public function test_photos_show_the_ranking_position_of_their_tag(): void
     {
-        $this->get('/')->assertSee('<b class="rank-badge">#1</b>', false);
+        $this->get('/')->assertSee('>#1</a>', false)->assertSee('class="rank-chip"', false);
         $this->get("/fotos/{$this->photo->id}")->assertSee('#1 en el ranking');
     }
 
