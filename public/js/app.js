@@ -43,33 +43,106 @@ document.querySelectorAll('[data-photo-form]').forEach((form) => {
     });
 });
 
-// Ubicación para "Spotting"
+// Mensaje para cada motivo por el que el teléfono no entrega la ubicación
+window.kingtagGeoError = (err) => {
+    if (err.code === 1) {
+        return 'Tu teléfono no le da permiso de ubicación a TAGKING. '
+            + 'iPhone: Ajustes › Privacidad › Localización › activa la localización y en Safari elige "Al usar la app". '
+            + 'Android: toca el candado junto a tagking.cl › Permisos › Ubicación › Permitir. Después toca Reintentar.';
+    }
+    if (err.code === 2) {
+        return 'El teléfono no encuentra tu ubicación. Revisa que el GPS (Ubicación) esté activado y toca Reintentar.';
+    }
+    return 'La ubicación se está demorando. Sal a un lugar más abierto o toca Reintentar.';
+};
+
+// Ubicación para "Spotting". La primera lectura del teléfono suele venir del
+// wifi o la antena y puede fallar por cientos de metros, así que esperamos
+// una lectura precisa antes de dejar registrar.
 document.querySelectorAll('[data-geo-form]').forEach((form) => {
     const lat = form.querySelector('[data-lat]');
     const lng = form.querySelector('[data-lng]');
+    const accuracy = form.querySelector('[data-accuracy]');
     const status = form.querySelector('[data-geo-status]');
+    const retry = form.querySelector('[data-geo-retry]');
+    const submit = form.querySelector('[data-geo-submit]');
+
+    const GOOD = 30;        // metros: con esto ya se puede registrar
+    const MAX_WAIT = 15000; // si no mejora en este tiempo, dejamos registrar igual
 
     if (!('geolocation' in navigator)) {
         status.textContent = 'Tu navegador no permite obtener la ubicación.';
         return;
     }
 
-    let announced = false;
-    navigator.geolocation.watchPosition(
-        (pos) => {
-            if (!announced) {
-                announced = true;
-                form.dispatchEvent(new CustomEvent('kingtag:location', { detail: pos.coords }));
-            }
-            lat.value = pos.coords.latitude.toFixed(7);
-            lng.value = pos.coords.longitude.toFixed(7);
-            status.textContent = `Ubicación lista (precisión de ${Math.round(pos.coords.accuracy)} m).`;
-        },
-        () => {
-            status.textContent = 'No pudimos obtener tu ubicación. Activa el GPS y dale permiso a la app.';
-        },
-        { enableHighAccuracy: true, maximumAge: 10000, timeout: 20000 },
-    );
+    let best = null;
+    let watchId = null;
+    let startedAt = 0;
+    let waitTimer = null;
+    let lastAnnounced = null;
+
+    const ready = () => best && (best.accuracy <= GOOD || Date.now() - startedAt >= MAX_WAIT);
+
+    const render = () => {
+        if (!best) return;
+        const m = Math.round(best.accuracy);
+        if (best.accuracy <= GOOD) {
+            status.textContent = `Ubicación lista ✓ (precisión de ${m} m).`;
+        } else if (ready()) {
+            status.textContent = `Ubicación aproximada (precisión de ${m} m). Puedes registrar, pero si sales a un lugar más abierto puede mejorar.`;
+        } else {
+            status.textContent = `Afinando tu ubicación… precisión de ${m} m.`;
+        }
+        submit.disabled = !ready();
+    };
+
+    const announce = () => {
+        // Avisamos la primera vez y cada vez que la precisión mejora harto,
+        // para que las sugerencias cercanas se calculen con la mejor lectura.
+        if (lastAnnounced && best.accuracy > lastAnnounced.accuracy / 2) return;
+        lastAnnounced = best;
+        form.dispatchEvent(new CustomEvent('kingtag:location', { detail: best }));
+    };
+
+    const start = () => {
+        if (watchId !== null) navigator.geolocation.clearWatch(watchId);
+        clearTimeout(waitTimer);
+        best = null;
+        lastAnnounced = null;
+        startedAt = Date.now();
+        lat.value = lng.value = accuracy.value = '';
+        submit.disabled = true;
+        retry.hidden = true;
+        status.textContent = 'Buscando tu ubicación…';
+        waitTimer = setTimeout(render, MAX_WAIT);
+
+        watchId = navigator.geolocation.watchPosition(
+            (pos) => {
+                const c = pos.coords;
+                // Nos quedamos con la lectura más precisa; una nueva la reemplaza
+                // si es casi igual de buena (la persona se pudo mover).
+                if (!best || c.accuracy <= best.accuracy * 1.2) {
+                    best = { latitude: c.latitude, longitude: c.longitude, accuracy: c.accuracy };
+                    lat.value = c.latitude.toFixed(7);
+                    lng.value = c.longitude.toFixed(7);
+                    accuracy.value = Math.round(c.accuracy);
+                    announce();
+                }
+                retry.hidden = true;
+                render();
+            },
+            (err) => {
+                // Si ya tenemos una lectura, un corte momentáneo no importa.
+                if (best && err.code !== 1) return;
+                status.textContent = window.kingtagGeoError(err);
+                retry.hidden = false;
+            },
+            { enableHighAccuracy: true, maximumAge: 0, timeout: 20000 },
+        );
+    };
+
+    retry.addEventListener('click', start);
+    start();
 
     form.addEventListener('submit', (e) => {
         if (!lat.value || !lng.value) {
@@ -101,13 +174,19 @@ document.querySelectorAll('[data-geo-form]').forEach((form) => {
         c.classList.toggle('selected', c.textContent === text.value);
     });
 
+    let request = 0;
     form.addEventListener('kingtag:location', async (e) => {
         if (!box) return;
+        const mine = ++request;
         try {
             const url = `${box.dataset.url}?lat=${e.detail.latitude}&lng=${e.detail.longitude}`;
             const res = await fetch(url, { headers: { Accept: 'application/json' } });
             if (!res.ok) return;
-            const names = [...new Set((await res.json()).map((g) => g.tag))].slice(0, 12);
+            const list = await res.json();
+            if (mine !== request) return; // llegó una ubicación mejor mientras tanto
+            const names = [...new Set(list.map((g) => g.tag))].slice(0, 12);
+            chips.replaceChildren();
+            box.hidden = !names.length;
             if (!names.length) return;
             names.forEach((name) => {
                 const chip = document.createElement('button');

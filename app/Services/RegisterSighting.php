@@ -19,19 +19,31 @@ class RegisterSighting
     /** El GPS del celular tiene un error de 5 a 20 metros. */
     public const MERGE_RADIUS = 20;
 
+    /**
+     * Si el teléfono avisó que su lectura era menos precisa (entre calles con
+     * edificios pasa seguido), buscamos el grafiti un poco más lejos, hasta
+     * este máximo, para no duplicarlo.
+     */
+    public const MAX_MERGE_RADIUS = 50;
+
+    public static function mergeRadius(?float $accuracy): float
+    {
+        return min(max(self::MERGE_RADIUS, $accuracy ?? 0), self::MAX_MERGE_RADIUS);
+    }
+
     public function __construct(private PhotoStore $photos) {}
 
     /**
      * @return array{graffiti: Graffiti, merged: bool}
      */
-    public function handle(User $user, string $text, float $lat, float $lng, UploadedFile $file): array
+    public function handle(User $user, string $text, float $lat, float $lng, UploadedFile $file, ?float $accuracy = null): array
     {
         $stored = $this->photos->store($file);
 
-        return DB::transaction(function () use ($user, $text, $lat, $lng, $stored) {
+        return DB::transaction(function () use ($user, $text, $lat, $lng, $stored, $accuracy) {
             $tag = Tag::findOrCreateByText($text);
 
-            $graffiti = Graffiti::withinMeters($lat, $lng, self::MERGE_RADIUS, $tag->graffitis()->getQuery())->first();
+            $graffiti = Graffiti::withinMeters($lat, $lng, self::mergeRadius($accuracy), $tag->graffitis()->getQuery())->first();
             $merged = $graffiti !== null;
 
             if ($merged) {

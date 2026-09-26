@@ -38,6 +38,7 @@ class SightingController extends Controller
             'photo' => ['required', 'image', 'max:12288'],
             'lat' => ['required', 'numeric', 'between:-90,90'],
             'lng' => ['required', 'numeric', 'between:-180,180'],
+            'accuracy' => ['nullable', 'numeric', 'min:0'],
         ], [
             'lat.required' => 'No pudimos obtener tu ubicación. Activa el GPS y dale permiso a la app.',
             'lng.required' => 'No pudimos obtener tu ubicación. Activa el GPS y dale permiso a la app.',
@@ -53,6 +54,7 @@ class SightingController extends Controller
             (float) $data['lat'],
             (float) $data['lng'],
             $data['photo'],
+            isset($data['accuracy']) ? (float) $data['accuracy'] : null,
         );
 
         $status = $result['merged']

@@ -25,14 +25,15 @@ class SightingTest extends TestCase
         Storage::fake('public');
     }
 
-    private function register(User $user, string $text, float $lat = self::LAT, float $lng = self::LNG)
+    private function register(User $user, string $text, float $lat = self::LAT, float $lng = self::LNG, ?int $accuracy = null)
     {
-        return $this->actingAs($user)->post('/registrar', [
+        return $this->actingAs($user)->post('/registrar', array_filter([
             'text' => $text,
             'lat' => $lat,
             'lng' => $lng,
+            'accuracy' => $accuracy,
             'photo' => UploadedFile::fake()->image('tag.jpg', 1200, 900),
-        ]);
+        ], fn ($v) => $v !== null));
     }
 
     public function test_registering_a_new_tag_creates_the_tag_the_graffiti_and_the_photo(): void
@@ -64,6 +65,28 @@ class SightingTest extends TestCase
         $graffiti = Graffiti::sole();
         $this->assertSame(2, $graffiti->reports);
         $this->assertCount(2, $graffiti->photos);
+    }
+
+    public function test_an_imprecise_location_looks_for_the_same_graffiti_a_bit_farther(): void
+    {
+        $user = User::factory()->create();
+
+        $this->register($user, 'KASE');
+        // Unos 33 metros más allá, pero el teléfono dijo que su precisión era de 40 m.
+        $this->register($user, 'KASE', self::LAT + 0.0003, accuracy: 40);
+
+        $this->assertSame(1, Graffiti::count());
+    }
+
+    public function test_the_merge_radius_never_grows_past_the_maximum(): void
+    {
+        $user = User::factory()->create();
+
+        $this->register($user, 'KASE');
+        // Unos 55 metros más allá, con una lectura muy mala.
+        $this->register($user, 'KASE', self::LAT + 0.0005, accuracy: 500);
+
+        $this->assertSame(2, Graffiti::count());
     }
 
     public function test_the_same_tag_far_away_is_a_new_graffiti(): void
