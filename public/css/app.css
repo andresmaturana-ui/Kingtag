@@ -114,6 +114,7 @@ img { max-width: 100%; display: block; }
 .votes.compact form { flex: 1; }
 .votes.compact .vote { width: 100%; justify-content: center; gap: 3px; padding: 4px 2px; font-size: .72rem; border-radius: 6px; }
 .votes.compact > a.vote { flex: 1; }
+.votes.compact .vote-label { display: none; }
 .comment { padding: 8px 0; border-bottom: 1px solid var(--line); }
 .comment p { margin: 2px 0; word-break: break-word; }
 .comment-form { margin: 12px 0 20px; }
@@ -187,14 +188,16 @@ textarea { resize: vertical; }
 .tag-votes.crowned .crown { fill: currentColor; }
 .ranking-row .tag-votes { font-size: .78rem; margin-top: 2px; }
 
-.feed { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }
+.feed { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 3px; }
 .feed-item { position: relative; }
 .feed-item form { position: absolute; top: 4px; right: 4px; }
 .feed-delete { font: inherit; font-size: .75rem; font-weight: 800; background: var(--danger); color: #fff; border: 0; border-radius: 6px; padding: 4px 8px; cursor: pointer; }
-.feed a { position: relative; color: var(--text); text-decoration: none; }
+.feed a:not(.vote, .rank-chip) { position: relative; display: block; color: var(--text); text-decoration: none; }
 .feed img { width: 100%; aspect-ratio: 1; object-fit: cover; }
-.feed a > span { position: absolute; left: 0; right: 0; bottom: 0; padding: 4px 6px; font-size: .75rem; background: rgba(0, 0, 0, .6); }
-.rank-badge { float: right; color: var(--accent); font-weight: 900; }
+/* Franja con el nombre y el puesto: el nombre largo se corta con "…" para que el puesto quede dentro de la foto. */
+.feed a:not(.vote, .rank-chip) > span { position: absolute; left: 0; right: 0; bottom: 0; display: flex; gap: 4px; padding: 4px 6px; font-size: .75rem; background: rgba(0, 0, 0, .6); }
+.feed a:not(.vote, .rank-chip) > span > .tag-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rank-chip { flex: none; display: inline-flex; align-items: center; justify-content: center; min-width: 2.6em; padding: 4px 6px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); color: var(--accent); font-size: .78rem; font-weight: 900; text-decoration: none; }
 .photo-rank { display: block; color: var(--accent); font-weight: 800; text-decoration: none; margin-top: 2px; }
 .feed.carousel { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
 .feed.carousel::-webkit-scrollbar { display: none; }

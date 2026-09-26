@@ -18,9 +18,9 @@
                 <div class="feed-card">
                     <a href="{{ route('photos.show', $photo) }}">
                         <img src="{{ $photo->thumbUrl() }}" alt="Grafiti de {{ $photo->graffiti->tag->text }}" loading="lazy">
-                        <span>{{ $photo->graffiti->tag->text }}@isset($positions[$photo->graffiti->tag_id])<b class="rank-badge">#{{ $positions[$photo->graffiti->tag_id] }}</b>@endisset</span>
+                        <span><span class="tag-label">{{ $photo->graffiti->tag->text }}</span></span>
                     </a>
-                    @include('partials.vote-buttons', ['compact' => true])
+                    @include('partials.vote-buttons', ['compact' => true, 'rank' => $positions[$photo->graffiti->tag_id] ?? null])
                 </div>
             @endforeach
         </div>
