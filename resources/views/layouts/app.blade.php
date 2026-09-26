@@ -23,7 +23,7 @@
 </head>
 <body>
     <header class="topbar">
-        <a href="{{ route('home') }}" class="logo"><img src="/img/logo.svg" alt="{{ config('kingtag.name') }}" width="129" height="54"></a>
+        <a href="{{ route('home') }}" class="logo"><img src="/img/logo.svg?v={{ filemtime(public_path('img/logo.svg')) }}" alt="{{ config('kingtag.name') }}" width="280" height="99"></a>
         <button class="burger" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu" data-burger>
             <span></span><span></span><span></span>
         </button>

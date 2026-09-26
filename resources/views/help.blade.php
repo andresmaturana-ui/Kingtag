@@ -13,7 +13,7 @@
 
 @section('content')
     <section class="manual-cover">
-        <img src="/img/logo.svg" alt="{{ $name }}" width="258" height="108">
+        <img src="/img/logo.svg?v={{ filemtime(public_path('img/logo.svg')) }}" alt="{{ $name }}" width="300" height="106">
         <p class="manual-cover-title">Manual de uso</p>
         <p class="muted">Los tags de la ciudad, en un mapa.</p>
         <div class="manual-qr">
