@@ -191,10 +191,12 @@ textarea { resize: vertical; }
 .feed-item { position: relative; }
 .feed-item form { position: absolute; top: 4px; right: 4px; }
 .feed-delete { font: inherit; font-size: .75rem; font-weight: 800; background: var(--danger); color: #fff; border: 0; border-radius: 6px; padding: 4px 8px; cursor: pointer; }
-.feed a { position: relative; color: var(--text); text-decoration: none; }
+.feed a:not(.vote) { position: relative; display: block; color: var(--text); text-decoration: none; }
 .feed img { width: 100%; aspect-ratio: 1; object-fit: cover; }
-.feed a > span { position: absolute; left: 0; right: 0; bottom: 0; padding: 4px 6px; font-size: .75rem; background: rgba(0, 0, 0, .6); }
-.rank-badge { float: right; color: var(--accent); font-weight: 900; }
+/* Franja con el nombre y el puesto: el nombre largo se corta con "…" para que el puesto quede dentro de la foto. */
+.feed a:not(.vote) > span { position: absolute; left: 0; right: 0; bottom: 0; display: flex; gap: 4px; padding: 4px 6px; font-size: .75rem; background: rgba(0, 0, 0, .6); }
+.feed a:not(.vote) > span > .tag-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rank-badge { flex: none; color: var(--accent); font-weight: 900; }
 .photo-rank { display: block; color: var(--accent); font-weight: 800; text-decoration: none; margin-top: 2px; }
 .feed.carousel { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
 .feed.carousel::-webkit-scrollbar { display: none; }
