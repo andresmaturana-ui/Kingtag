@@ -1,0 +1,8 @@
+# Las fotos subidas tienen nombres únicos y nunca cambian, así que el teléfono
+# puede guardarlas un año sin volver a pedirlas. Si una foto se borra, su
+# dirección deja de aparecer en la app. Se lee a través del enlace public/storage.
+<IfModule mod_headers.c>
+    <FilesMatch "\.(jpe?g|png|webp)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+</IfModule>
