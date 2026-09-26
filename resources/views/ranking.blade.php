@@ -12,7 +12,9 @@
             @if ($img = $t->imageUrl())
                 <img src="{{ $img }}" alt="" loading="lazy">
             @endif
-            <span class="name">{{ $t->text }}</span>
+            <span class="name">{{ $t->text }}
+                @include('partials.tag-votes', ['kings' => (int) $t->kings_count, 'toys' => (int) $t->toys_count])
+            </span>
             <span class="count">{{ $t->graffitis_count }}</span>
         </a>
     @empty

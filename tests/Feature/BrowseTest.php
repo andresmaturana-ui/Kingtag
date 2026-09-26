@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Graffiti;
 use App\Models\Photo;
 use App\Models\Tag;
+use App\Models\User;
 use App\Services\Ranking;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -74,6 +75,23 @@ class BrowseTest extends TestCase
 
         $this->assertSame(['KASE', 'NEKO', 'ROMA'], app(Ranking::class)->top()->pluck('text')->all());
         $this->get('/ranking')->assertOk()->assertSeeInOrder(['KASE', 'NEKO', 'ROMA'])->assertDontSee('VACIO');
+    }
+
+    public function test_tag_page_and_ranking_show_kings_and_toys_received(): void
+    {
+        $tags = $this->tagsWithGraffitis(['KASE' => 2, 'NEKO' => 1]);
+        $photos = $tags['KASE']->graffitis->map(fn (Graffiti $g) => $g->photos()->create(['path' => 'x.jpg', 'thumb' => 'x_t.jpg']));
+        $photos[0]->likers()->attach(User::factory()->count(2)->create());
+        $photos[1]->likers()->attach(User::factory()->create());
+        $photos[1]->toyers()->attach(User::factory()->create());
+
+        $ranked = app(Ranking::class)->top()->keyBy('text');
+        $this->assertSame([3, 1], [(int) $ranked['KASE']->kings_count, (int) $ranked['KASE']->toys_count]);
+        $this->assertSame([0, 0], [(int) $ranked['NEKO']->kings_count, (int) $ranked['NEKO']->toys_count]);
+
+        $this->get('/ranking')->assertOk()->assertSeeInOrder(['KASE', '3 King', '1 Toy', 'NEKO', '0 King', '0 Toy']);
+        $this->get(route('tags.show', $tags['KASE']))->assertOk()->assertSee('tag-votes crowned', false)->assertSee('3 King');
+        $this->get(route('tags.show', $tags['NEKO']))->assertOk()->assertDontSee('tag-votes crowned', false)->assertSee('0 King');
     }
 
     public function test_ranking_shows_top_20_only(): void

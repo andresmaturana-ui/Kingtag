@@ -150,7 +150,7 @@
             <h2><b>6</b> La página de cada tag</h2>
             <p>Cada tag tiene su propia página. Llegas a ella tocando su nombre en cualquier parte de la app.</p>
             <ul>
-                <li><strong>Arriba:</strong> la foto del tag, el artista que lo reclamó (o "Tag sin reclamar") y cuántos grafitis tiene.</li>
+                <li><strong>Arriba:</strong> la foto del tag, el artista que lo reclamó (o "Tag sin reclamar") y cuántos grafitis tiene. Debajo, cuántos King y Toy han recibido sus fotos: cuando tiene al menos un King, la corona se pinta amarilla.</li>
                 <li><strong>Su lugar en el ranking:</strong> al centro, en amarillo, su posición. A los lados, el tag que va justo arriba y el que va justo abajo. Así sabes a quién tienes que pasar.</li>
                 <li><strong>Dónde está:</strong> un mapa con un círculo por cada grafiti.</li>
                 <li><strong>Fotos:</strong> todas las fotos que la gente ha registrado de ese tag.</li>
@@ -178,7 +178,7 @@
     <section class="manual-step has-shot" id="ranking">
         <div class="manual-text">
             <h2><b>8</b> El ranking</h2>
-            <p>En el menú, <strong>Ranking</strong> muestra los 20 tags con más grafitis de la ciudad. El número de la derecha es cuántas murallas distintas tiene cada uno.</p>
+            <p>En el menú, <strong>Ranking</strong> muestra los 20 tags con más grafitis de la ciudad. El número de la derecha es cuántas murallas distintas tiene cada uno. Bajo cada nombre ves cuántos 👑 King y Toy han recibido sus fotos.</p>
             <p>Para subir, el tag tiene que aparecer en más lugares. Varias fotos del mismo grafiti no suman.</p>
             <p>Toca cualquier tag para ver su página, su mapa y sus fotos.</p>
         </div>

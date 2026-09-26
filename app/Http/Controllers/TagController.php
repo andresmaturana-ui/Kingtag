@@ -18,6 +18,7 @@ class TagController extends Controller
     public function show(Request $request, Tag $tag, Ranking $ranking): View
     {
         $tag->load('artist');
+        $votes = Tag::query()->whereKey($tag->id)->withVoteCounts()->first();
         $graffitis = $tag->graffitis()->latest('id')->get();
 
         return view('tags.show', [
@@ -31,6 +32,8 @@ class TagController extends Controller
             ]),
             'photos' => $tag->photos()->latest('photos.id')->limit(60)->get(),
             'rank' => $ranking->around($tag),
+            'kings' => (int) $votes->kings_count,
+            'toys' => (int) $votes->toys_count,
             'isAdmin' => (bool) $request->user()?->is_admin,
             'canModerate' => (bool) $request->user()?->canModerate(),
         ]);
