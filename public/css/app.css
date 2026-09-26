@@ -1,6 +1,6 @@
 @font-face {
-    font-family: "Permanent Marker";
-    src: url("/fonts/permanent-marker.woff2") format("woff2");
+    font-family: "Rock Salt";
+    src: url("/fonts/rock-salt.woff2") format("woff2");
     font-display: swap;
 }
 
@@ -20,7 +20,7 @@
     --accent-ink: #111;
     --danger: #ff5a5a;
     --radius: 14px;
-    --display: "Permanent Marker", system-ui, sans-serif;
+    --display: "Rock Salt", system-ui, sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -50,8 +50,10 @@ img { max-width: 100%; display: block; }
     padding: calc(env(safe-area-inset-top) + 10px) 16px 10px;
     background: var(--bg); border-bottom: 1px solid var(--line);
 }
-.logo { display: block; line-height: 0; }
-.logo img { display: block; height: 54px; width: auto; }
+.topbar { gap: 12px; }
+/* El logo ocupa todo el ancho libre junto al menú, con un tope para pantallas grandes */
+.logo { display: block; line-height: 0; flex: 1 1 auto; min-width: 0; max-width: 202px; }
+.logo img { display: block; width: 100%; height: auto; }
 .burger { width: 44px; height: 44px; display: grid; place-content: center; gap: 5px; background: none; border: 0; cursor: pointer; }
 .burger span { display: block; width: 26px; height: 3px; background: var(--text); border-radius: 2px; transition: transform .2s, opacity .2s; }
 .menu-open .burger span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
@@ -61,7 +63,7 @@ img { max-width: 100%; display: block; }
 .menu {
     position: fixed; z-index: 1050; top: 0; right: 0; bottom: 0;
     width: min(80vw, 320px);
-    padding: calc(env(safe-area-inset-top) + 80px) 24px 24px;
+    padding: calc(env(safe-area-inset-top) + 100px) 24px 24px;
     background: var(--panel); border-left: 1px solid var(--line);
     display: flex; flex-direction: column; gap: 4px;
 }
@@ -175,8 +177,16 @@ textarea { resize: vertical; }
 }
 .ranking-row img { width: 52px; height: 52px; object-fit: cover; border-radius: 8px; }
 .ranking-row .pos { width: 2.6em; }
-.ranking-row .name { flex: 1; font-weight: 800; font-size: 1.1rem; }
+.ranking-row .name { flex: 1; min-width: 0; font-weight: 800; font-size: 1.1rem; }
 .ranking-row .count { color: var(--muted); }
+/* King y Toy recibidos por un tag (perfil y ranking) */
+.tag-votes { display: flex; gap: 12px; margin: 4px 0 0; font-size: .875rem; font-weight: 700; color: var(--muted); }
+.tag-votes > span { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
+.tag-votes .crown { width: 1.2em; height: 1.2em; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linejoin: round; }
+.tag-votes .crown rect { fill: currentColor; stroke: none; }
+.tag-votes.crowned .tag-kings { color: var(--accent); }
+.tag-votes.crowned .crown { fill: currentColor; }
+.ranking-row .tag-votes { font-size: .78rem; margin-top: 2px; }
 
 .feed { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }
 .feed-item { position: relative; }
@@ -218,7 +228,7 @@ textarea { resize: vertical; }
 .manual-index { display: flex; flex-direction: column; margin: 8px 0 8px; border-top: 1px solid var(--line); }
 .manual-index a { padding: 10px 2px; border-bottom: 1px solid var(--line); color: var(--text); text-decoration: none; font-weight: 700; }
 .manual-index b, .manual-step h2 b { color: var(--accent); font-family: var(--display); font-weight: 400; margin-right: 8px; }
-.manual-step { padding: 8px 0 4px; scroll-margin-top: 90px; }
+.manual-step { padding: 8px 0 4px; scroll-margin-top: 100px; }
 .manual-step h2 { font-family: var(--display); font-weight: 400; font-size: 1.5rem; text-transform: none; letter-spacing: .02em; color: var(--text); margin: 1.6rem 0 .4rem; }
 .manual-step ol, .manual-step ul { padding-left: 1.3em; }
 .manual-step li { margin: 6px 0; }

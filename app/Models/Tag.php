@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Database\Factories\TagFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -71,5 +73,27 @@ class Tag extends Model
         $latest = $this->graffitis()->latest('id')->first();
 
         return $latest?->thumbUrl();
+    }
+
+    /**
+     * Suma kings_count y toys_count: los King y Toy que recibieron todas las
+     * fotos de los grafitis del tag.
+     */
+    public function scopeWithVoteCounts(Builder $query): void
+    {
+        if ($query->getQuery()->columns === null) {
+            $query->select('tags.*');
+        }
+
+        foreach (['kings_count' => 'photo_likes', 'toys_count' => 'photo_toys'] as $alias => $table) {
+            $query->selectSub(
+                DB::table($table)
+                    ->join('photos', 'photos.id', '=', "$table.photo_id")
+                    ->join('graffitis', 'graffitis.id', '=', 'photos.graffiti_id')
+                    ->whereColumn('graffitis.tag_id', 'tags.id')
+                    ->selectRaw('count(*)'),
+                $alias,
+            );
+        }
     }
 }

@@ -19,6 +19,7 @@ class Ranking
         return Tag::query()
             ->whereHas('graffitis')
             ->withCount('graffitis')
+            ->withVoteCounts()
             ->orderByDesc('graffitis_count')
             ->orderBy('id')
             ->get();

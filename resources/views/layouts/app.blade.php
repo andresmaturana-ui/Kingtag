@@ -18,12 +18,12 @@
     <link rel="apple-touch-icon" href="/icons/icon-192.png?v={{ filemtime(public_path('icons/icon-192.png')) }}">
     <meta name="apple-mobile-web-app-capable" content="yes">
     @stack('head')
-    <link rel="preload" href="/fonts/permanent-marker.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/rock-salt.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="/css/app.css?v={{ filemtime(public_path('css/app.css')) }}">
 </head>
 <body>
     <header class="topbar">
-        <a href="{{ route('home') }}" class="logo"><img src="/img/logo.svg" alt="{{ config('kingtag.name') }}" width="129" height="54"></a>
+        <a href="{{ route('home') }}" class="logo"><img src="/img/logo.svg?v={{ filemtime(public_path('img/logo.svg')) }}" alt="{{ config('kingtag.name') }}" width="202" height="71"></a>
         <button class="burger" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu" data-burger>
             <span></span><span></span><span></span>
         </button>
