@@ -18,6 +18,11 @@
         <span>Escríbele a un usuario o a todos · {{ $adminUnreadReplies === 1 ? '1 respuesta sin leer' : "{$adminUnreadReplies} respuestas sin leer" }}</span>
     </a>
 
+    <a class="big-button {{ $pendingReports ? 'accent' : '' }}" href="{{ route('admin.reports') }}">
+        <strong>Reportes</strong>
+        <span>Fotos y comentarios avisados por los usuarios · {{ $pendingReports === 1 ? '1 pendiente' : "{$pendingReports} pendientes" }}</span>
+    </a>
+
     <a class="big-button {{ $unread ? 'accent' : '' }}" href="{{ route('admin.messages') }}">
         <strong>Contacto</strong>
         <span>{{ $unread === 1 ? '1 sin leer' : "{$unread} sin leer" }}</span>
