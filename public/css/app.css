@@ -329,3 +329,24 @@ textarea { resize: vertical; }
 .chat-bubble { max-width: 85%; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 8px 12px; }
 .chat-bubble p { margin: 2px 0; }
 .chat-bubble.mine { align-self: flex-end; border-color: var(--accent); }
+
+/* Reportar, bloquear, mi cuenta y privacidad */
+.photo-safety { margin: 10px 0 0; }
+details.report { display: inline; }
+details.report > summary { display: inline; list-style: none; }
+details.report > summary::-webkit-details-marker { display: none; }
+details.report[open] { display: block; }
+.report-form { margin: 10px 0; padding: 12px 14px; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); gap: 8px; color: var(--text); }
+.report-form p { margin: 0; }
+.form label.radio, .form label.check { flex-direction: row; align-items: center; gap: 10px; font-weight: 400; }
+.form label.radio input, .form label.check input { width: auto; accent-color: var(--accent); }
+.blocked-note { padding: 18px; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); }
+.blocked-note p { margin: 0 0 10px; }
+.blocked-list { list-style: none; padding: 0; margin: 0; }
+.blocked-list li { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.danger-zone { margin-top: 28px; padding: 16px; border: 1px solid var(--danger); border-radius: var(--radius); }
+.danger-zone h2 { margin-top: 0; color: var(--danger); }
+.prose p, .prose li { line-height: 1.55; }
+.prose h2 { margin-top: 1.8rem; }
+.report-thumb { width: 72px; height: 72px; object-fit: cover; border-radius: 8px; vertical-align: middle; margin-right: 8px; }
+.admin-item.resolved { opacity: .55; }

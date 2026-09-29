@@ -6,6 +6,7 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -51,5 +52,21 @@ class User extends Authenticatable
     public function photos(): HasMany
     {
         return $this->hasMany(Photo::class);
+    }
+
+    /**
+     * Los usuarios que este bloqueó: no ve sus fotos ni sus comentarios.
+     */
+    public function blocked(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'user_blocks', 'user_id', 'blocked_id')->withTimestamps();
+    }
+
+    /**
+     * @return list<int>
+     */
+    public function blockedIds(): array
+    {
+        return $this->blocked()->pluck('users.id')->all();
     }
 }

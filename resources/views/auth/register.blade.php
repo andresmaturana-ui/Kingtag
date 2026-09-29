@@ -20,6 +20,7 @@
             <input type="password" name="password_confirmation" autocomplete="new-password" required minlength="6">
         </label>
         <p class="muted small">Anota tu clave: como no pedimos correo, no hay forma automática de recuperarla.</p>
+        <p class="muted small">Al crear tu cuenta aceptas la <a href="{{ route('privacy') }}">política de privacidad y las reglas de la comunidad</a>.</p>
         <button type="submit" class="button">Crear cuenta</button>
     </form>
 

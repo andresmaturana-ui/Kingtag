@@ -30,7 +30,7 @@ class TagController extends Controller
                 'thumb' => $g->thumbUrl(),
                 'tag' => $tag->text,
             ]),
-            'photos' => $tag->photos()->latest('photos.id')->limit(60)->get(),
+            'photos' => $tag->photos()->visibleTo($request->user())->latest('photos.id')->limit(60)->get(),
             'rank' => $ranking->around($tag),
             'kings' => (int) $votes->kings_count,
             'isAdmin' => (bool) $request->user()?->is_admin,

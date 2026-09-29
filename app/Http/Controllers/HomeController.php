@@ -20,6 +20,7 @@ class HomeController extends Controller
             'photos' => Photo::query()
                 ->with('graffiti.tag')
                 ->withVotes($request->user())
+                ->visibleTo($request->user())
                 ->latest('id')
                 ->simplePaginate(30),
             'positions' => $ranking->positions(),

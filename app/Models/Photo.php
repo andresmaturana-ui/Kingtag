@@ -56,6 +56,18 @@ class Photo extends Model
     }
 
     /**
+     * Esconde las fotos de los usuarios que la persona conectada bloqueó.
+     */
+    public function scopeVisibleTo(Builder $query, ?User $user): void
+    {
+        $blocked = $user?->blockedIds() ?? [];
+
+        if ($blocked) {
+            $query->where(fn ($q) => $q->whereNull('photos.user_id')->orWhereNotIn('photos.user_id', $blocked));
+        }
+    }
+
+    /**
      * Da o quita un voto ("king" o "toy"). Dar uno quita el otro.
      */
     public function vote(User $user, string $vote): void

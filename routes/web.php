@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\InboxController as AdminInboxController;
+use App\Http\Controllers\Admin\ReportController as AdminReportController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
@@ -11,6 +13,7 @@ use App\Http\Controllers\MapController;
 use App\Http\Controllers\MyTagController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\RankingController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SightingController;
 use App\Http\Controllers\TagController;
@@ -26,6 +29,10 @@ Route::get('/mapa/grafitis', [MapController::class, 'graffitis'])->name('map.gra
 Route::get('/mapa/cerca', [MapController::class, 'nearby'])->name('map.nearby');
 
 Route::view('/ayuda', 'help')->name('help');
+Route::view('/privacidad', 'privacy')->name('privacy');
+
+// Pública: Google Play pide un link para borrar la cuenta que funcione sin la app.
+Route::get('/borrar-cuenta', [AccountController::class, 'confirmDelete'])->name('account.delete');
 
 Route::get('/manifest.webmanifest', ManifestController::class)->name('manifest');
 
@@ -43,6 +50,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/salir', [AuthController::class, 'logout'])->name('logout');
 
     Route::get('/mi-perfil', [TagController::class, 'mine'])->name('profile');
+
+    Route::get('/mi-cuenta', [AccountController::class, 'show'])->name('account');
+    Route::delete('/borrar-cuenta', [AccountController::class, 'destroy'])->name('account.destroy')->middleware('throttle:10,60');
+    Route::post('/usuarios/{user}/bloquear', [AccountController::class, 'toggleBlock'])->name('users.block');
+
+    Route::post('/fotos/{photo}/reportar', [ReportController::class, 'photo'])->name('photos.report')->middleware('throttle:20,60');
+    Route::post('/comentarios/{comment}/reportar', [ReportController::class, 'comment'])->name('comments.report')->middleware('throttle:20,60');
 
     Route::get('/mensajes', [InboxController::class, 'index'])->name('inbox');
     Route::post('/mensajes', [InboxController::class, 'reply'])->name('inbox.reply')->middleware('throttle:20,60');
@@ -74,6 +88,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::post('/bandeja/todos', [AdminInboxController::class, 'sendToAll'])->name('inbox.all');
     Route::get('/usuarios/{user}/mensajes', [AdminInboxController::class, 'show'])->name('inbox.show');
     Route::post('/usuarios/{user}/mensajes', [AdminInboxController::class, 'send'])->name('inbox.send');
+
+    Route::get('/reportes', [AdminReportController::class, 'index'])->name('reports');
+    Route::post('/reportes/{report}/listo', [AdminReportController::class, 'resolve'])->name('reports.resolve');
 
     Route::get('/tags', [AdminController::class, 'tags'])->name('tags');
     Route::delete('/tags/{tag}', [AdminController::class, 'deleteTag'])->name('tags.delete');

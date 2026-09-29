@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Report;
 use App\Services\Inbox;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -21,7 +22,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // El numerito de "Mis mensajes" en el menú, y el de respuestas sin leer para los admins.
+        // El numerito de "Mis mensajes" en el menú, y para los admins el de respuestas sin leer y reportes pendientes.
         View::composer(['layouts.app', 'admin.nav', 'admin.index'], function ($view) {
             // Se calcula una vez por visita, aunque lo usen varias vistas.
             $attributes = request()->attributes;
@@ -31,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
                 $attributes->set('inbox_counts', [
                     'inboxUnread' => $user ? $inbox->unreadFor($user) : 0,
                     'adminUnreadReplies' => $user?->is_admin ? $inbox->unreadReplies() : 0,
+                    'pendingReports' => $user?->is_admin ? Report::whereNull('resolved_at')->count() : 0,
                 ]);
             }
             $view->with($attributes->get('inbox_counts'));

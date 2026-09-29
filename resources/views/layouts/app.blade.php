@@ -36,11 +36,13 @@
         <a href="{{ route('ranking') }}">Ranking</a>
         <a href="{{ route('help') }}">Ayuda</a>
         <a href="{{ route('contact') }}">Contacto</a>
+        <a href="{{ route('privacy') }}">Privacidad</a>
         @auth
             <a href="{{ route('profile') }}">Mi perfil</a>
+            <a href="{{ route('account') }}">Mi cuenta</a>
             <a href="{{ route('inbox') }}">Mis mensajes @if ($inboxUnread ?? 0)<span class="count-badge">{{ $inboxUnread }}</span>@endif</a>
             @if (auth()->user()->is_admin)
-                <a href="{{ route('admin.index') }}">Administrar @if ($adminUnreadReplies ?? 0)<span class="count-badge">{{ $adminUnreadReplies }}</span>@endif</a>
+                <a href="{{ route('admin.index') }}">Administrar @if (($adminUnreadReplies ?? 0) + ($pendingReports ?? 0))<span class="count-badge">{{ ($adminUnreadReplies ?? 0) + ($pendingReports ?? 0) }}</span>@endif</a>
             @endif
             <form method="POST" action="{{ route('logout') }}">
                 @csrf

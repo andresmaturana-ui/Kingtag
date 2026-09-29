@@ -23,11 +23,16 @@ class PhotoController extends Controller
             ->with(['graffiti.tag', 'comments' => fn ($q) => $q->with('user')->oldest('id')])
             ->findOrFail($photo->id);
 
+        // Los comentarios de usuarios bloqueados no se muestran.
+        $blocked = $request->user()?->blockedIds() ?? [];
+        $photo->setRelation('comments', $photo->comments->reject(fn ($c) => in_array($c->user_id, $blocked, true))->values());
+
         return view('photos.show', [
             'photo' => $photo,
             'tag' => $photo->graffiti->tag,
             'position' => $ranking->positions()[$photo->graffiti->tag_id] ?? null,
             'canModerate' => (bool) $request->user()?->canModerate(),
+            'authorBlocked' => $photo->user_id && in_array($photo->user_id, $blocked, true),
         ]);
     }
 
