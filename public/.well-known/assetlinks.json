@@ -3,6 +3,9 @@
       "target": {
         "namespace": "android_app",
         "package_name": "org.tagking.app",
-        "sha256_cert_fingerprints": ["8C:AF:7C:7D:0E:D0:BC:77:1A:E4:AA:A9:B4:AD:14:3F:0A:A2:D9:89:8B:E8:E0:E4:66:7C:34:D1:71:F9:5B:03"]
+        "sha256_cert_fingerprints": [
+          "8C:AF:7C:7D:0E:D0:BC:77:1A:E4:AA:A9:B4:AD:14:3F:0A:A2:D9:89:8B:E8:E0:E4:66:7C:34:D1:71:F9:5B:03",
+          "29:77:81:AE:FF:0D:4B:3A:42:36:CC:94:AA:DE:86:82:77:01:5D:FD:9B:B4:67:98:C2:11:51:D8:38:3E:B5:86"
+        ]
       }
     }]
