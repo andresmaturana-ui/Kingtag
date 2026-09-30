@@ -48,7 +48,7 @@ window.kingtagGeoError = (err) => {
     if (err.code === 1) {
         return 'Tu teléfono no le da permiso de ubicación a TAGKING. '
             + 'iPhone: Ajustes › Privacidad › Localización › activa la localización y en Safari elige "Al usar la app". '
-            + 'Android: toca el candado junto a tagking.cl › Permisos › Ubicación › Permitir. Después toca Reintentar.';
+            + 'Android: toca el candado junto a tagking.org › Permisos › Ubicación › Permitir. Después toca Reintentar.';
     }
     if (err.code === 2) {
         return 'El teléfono no encuentra tu ubicación. Revisa que el GPS (Ubicación) esté activado y toca Reintentar.';

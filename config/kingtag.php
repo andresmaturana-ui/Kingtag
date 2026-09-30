@@ -7,6 +7,21 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Dominios que llevan a la dirección oficial
+    |--------------------------------------------------------------------------
+    |
+    | La dirección oficial es APP_URL (https://tagking.org). Quien entre por
+    | uno de estos dominios se va a la misma página en la dirección oficial.
+    |
+    */
+
+    'redirect_hosts' => array_filter(array_map('trim', explode(',', env(
+        'KINGTAG_REDIRECT_HOSTS',
+        'tagking.cl,www.tagking.cl,www.tagking.org',
+    )))),
+
+    /*
+    |--------------------------------------------------------------------------
     | Centro del mapa
     |--------------------------------------------------------------------------
     |

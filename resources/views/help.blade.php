@@ -17,8 +17,8 @@
         <p class="manual-cover-title">Manual de uso</p>
         <p class="muted">La calle habla, TAGKING anota.</p>
         <div class="manual-qr">
-            <img src="/img/qr-tagking.svg" alt="Código QR a tagking.cl" width="140" height="140">
-            <p>Escanea para abrir la app<br><strong>tagking.cl</strong></p>
+            <img src="/img/qr-tagking.svg" alt="Código QR a tagking.org" width="140" height="140">
+            <p>Escanea para abrir la app<br><strong>tagking.org</strong></p>
         </div>
     </section>
 
@@ -219,8 +219,8 @@
         <h2><b>11</b> Instala la app en tu celu</h2>
         <p>{{ $name }} funciona desde el navegador, sin bajar nada de ninguna tienda y gratis. Pa' tenerla como cualquier app, con la corona en tu pantalla:</p>
         <ul>
-            <li><strong>Android (Chrome):</strong> abre tagking.cl, toca los tres puntos <span class="manual-key">⋮</span> arriba a la derecha y elige <strong>Agregar a la pantalla principal</strong> o <strong>Instalar app</strong>.</li>
-            <li><strong>iPhone (Safari):</strong> abre tagking.cl, toca el botón compartir <span class="manual-key">⬆</span> abajo y elige <strong>Agregar a inicio</strong>.</li>
+            <li><strong>Android (Chrome):</strong> abre tagking.org, toca los tres puntos <span class="manual-key">⋮</span> arriba a la derecha y elige <strong>Agregar a la pantalla principal</strong> o <strong>Instalar app</strong>.</li>
+            <li><strong>iPhone (Safari):</strong> abre tagking.org, toca el botón compartir <span class="manual-key">⬆</span> abajo y elige <strong>Agregar a inicio</strong>.</li>
         </ul>
     </section>
 
@@ -228,7 +228,7 @@
         <h2><b>12</b> Preguntas frecuentes</h2>
         <dl class="manual-faq">
             <dt>La app no me ubica.</dt>
-            <dd>Activa el GPS del teléfono y dale permiso de ubicación. En iPhone: Ajustes › Privacidad › Localización, actívala y en Safari elige "Al usar la app". En Android: toca el candado junto a tagking.cl › Permisos › Ubicación › Permitir. Después toca <strong>Reintentar ubicación</strong>.</dd>
+            <dd>Activa el GPS del teléfono y dale permiso de ubicación. En iPhone: Ajustes › Privacidad › Localización, actívala y en Safari elige "Al usar la app". En Android: toca el candado junto a tagking.org › Permisos › Ubicación › Permitir. Después toca <strong>Reintentar ubicación</strong>.</dd>
 
             <dt>Dice "Afinando tu ubicación" y se demora.</dt>
             <dd>El celu está buscando una ubicación fina. Sal a un lugar más abierto o aléjate de los edificios altos y en segundos mejora.</dd>
